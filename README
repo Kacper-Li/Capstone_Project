@@ -1,0 +1,19 @@
+Capstone project to feature a card game "Crib" coded in python.
+# HOW TO RUN
+python3 game.py
+# OVERVIEW
+There will be a main function aswell as twenty others.
+# PLAN
+A main game controller function/class, one to control the individual players too.
+The main game controller should keep track of:
+- scores
+- cards on the board
+- - The box "crib"
+- - The Cut Card
+- - The pegging progress
+- HOW to score (different rules for card combos)
+- the decks current contents (which cards gone)
+
+The player controllers should keep track of:
+- Players hand
+- (not sure but communicate how much score the hand has? maybe function for this? also needs to update properly when cards are played)
