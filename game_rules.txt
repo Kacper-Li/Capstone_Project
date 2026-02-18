@@ -1,0 +1,38 @@
+# Very first framework for the python game
+# We are going to simulate the game of CRIB, with only 2 players
+# It is a card game where there are 3 main aspects:
+# - Your hand
+# - A box (or Crib)
+# - Pegging
+# Each turn both players get 6 cards, put away 2 into the box
+# With the remaining 4 cards, you begin pegging!
+
+# First, Pegging!
+# Pegging is where you use the cards value and try to score points through scoring rules:
+# Pegging only goes up to 31 card value before you have to start over!
+# Scoring rules are:
+# - if you place a card to make the total 15 card value, you get 2 points
+# - if you are the last card placed before a reset (before 31) you get a point
+# - if you exactly reach 31, you get 2 points!
+# - pairs and runs of all types work here too!
+
+# Next the box!
+# At the start of a round, the entire deck is shuffled and one player cuts the deck
+# The card ontop of that cut becomes the "cut card"
+# The other person who did not cut the deck gets the box for that round!
+# You might be thinking, wait they just get extra 4 cards? yes! Exactly!
+# The box is only counted at the end of the round, after the hand, and includes the cut card!
+
+# Next Hands!
+# Hands are scored immediately after pegging finished.
+# Whoever is without the box, gets to add theirs first! (helps in close races at the end)
+# The scoring includes the cut card, and follows similar 15/pairs/runs/flush/straight patterns!
+
+# Game specifics
+# To decide who gets the box first, the advantage, each player cuts the deck at random, lower number wins
+# 10, J, K, Q are the same 10 value
+# Jacks have particular scoring caveats
+# - if you cut a jack for cut card, you give the other player 2 points
+# - if you have a jack same suit as the cut card, you gain a point!
+
+
