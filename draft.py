@@ -36,6 +36,7 @@
 # Make this global just cuz it will be used probably everywhere
 from itertools import product
 from random import shuffle
+import random
 
 card_suits = ['Club', 'Diamond', 'Heart', 'Spade']
 card_ranks = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']
@@ -59,22 +60,33 @@ scoring_types = {
 
 def print_deck_52(deck):
     ns = 2
-    ss = 15
+    ss = 14
     print("Printing...")
     for i in range(0, len(deck), 4):
-        a = f"{deck[i][0]:{ns}} of {deck[i][1]}s"
-        b = f"{deck[i+1][0]:{ns}} of {deck[i+1][1]}s"
-        c = f"{deck[i+2][0]:{ns}} of {deck[i+2][1]}s"
-        d = f"{deck[i+3][0]:{ns}} of {deck[i+3][1]}s"
-        print(f"{a:{ss}}| {b:{ss}}| {c:{ss}}| {d}")
+        formatted_parts = []
+        for card in deck[i:i+4]:
+            card_string = f"{card[0]:{ns}} of {card[1]}s"
+            formatted_parts.append(f"{card_string:{ss}}")
+        line = ' | '.join(formatted_parts)
+        print(line)
     print("DONE")
+
+# Shuffle deck DONE
+# Manipulate deck <---
+# Create Hands (active/ base)
+# Create box
+# Get cut card
+# Pegging pipeline
 
 
 def round(base_deck: list[tuple]) -> tuple:
     round_deck = base_deck[:]
     shuffle(round_deck)
-    # print("Round deck:")
-    # print(print_deck_52(round_deck))
+    # pick_a_card = round_deck.pop(random.randint(0, len(round_deck) - 1))
+    # print("This is the card chosen at random:",
+    #       pick_a_card, "\n This is the new deck:")
+    print("Round deck:")
+    print_deck_52(round_deck)
 
 
 def main():
@@ -87,8 +99,6 @@ def main():
 
     player_1_score = 0
     player_2_score = 0
-    pegging_value = 0
-    cut_card = ''
 
 
 main()
