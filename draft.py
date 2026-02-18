@@ -47,12 +47,15 @@ scoring_types = {
 
 def main():
     deck = list(product(card_ranks, card_suits))
+    shuffle(deck)
+    ns = 2
+    ss = 15
     for i in range(0, len(deck), 4):
-        a = f"{deck[i][0]:2} of {deck[i][1]}s"
-        b = f"{deck[i+1][0]:2} of {deck[i+1][1]}s"
-        c = f"{deck[i+2][0]:2} of {deck[i+2][1]}s"
-        d = f"{deck[i+3][0]:2} of {deck[i+3][1]}s"
-        print(f"{a:12}| {b:15}| {c:13}| {d}")
+        a = f"{deck[i][0]:{ns}} of {deck[i][1]}s"
+        b = f"{deck[i+1][0]:{ns}} of {deck[i+1][1]}s"
+        c = f"{deck[i+2][0]:{ns}} of {deck[i+2][1]}s"
+        d = f"{deck[i+3][0]:{ns}} of {deck[i+3][1]}s"
+        print(f"{a:{ss}}| {b:{ss}}| {c:{ss}}| {d}")
     player_1_score = 0
     player_2_score = 0
     pegging_value = 0
