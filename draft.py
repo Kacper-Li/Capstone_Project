@@ -62,7 +62,7 @@ def print_deck(deck: list[tuple]) -> None:
     """Takes any list of cards and prints them out in 4 structured columns"""
     ns = 2
     ss = 14
-    print("Printing...")
+    # print("Printing...")
     for i in range(0, len(deck), 4):
         formatted_parts = []
         for card in deck[i:i+4]:
@@ -70,7 +70,7 @@ def print_deck(deck: list[tuple]) -> None:
             formatted_parts.append(f"{card_string:{ss}}")
         line = ' | '.join(formatted_parts)
         print(line)
-    print("DONE")
+    # print("DONE")
 
 
 # General function to get a card out of any set of cards (hand, box or deck!)
@@ -85,6 +85,19 @@ def pick_a_card(card_set: list[tuple], index=0) -> tuple:
     # print(f"The card chosen at random: {pick_a_card[0]} of {pick_a_card[1]}s")
     return pick_a_card
 
+
+def box_init(player_1_hand: list[tuple], player_2_hand: list[tuple]) -> list[tuple]:
+    """Generates and returns the box from the two players hands."""
+    box = []
+    box.append(pick_a_card(player_1_hand))
+    box.append(pick_a_card(player_1_hand))
+    box.append(pick_a_card(player_2_hand))
+    box.append(pick_a_card(player_2_hand))
+    print("Box: ")
+    print_deck(box)
+    return box
+
+
 # Shuffle deck DONE
 # Manipulate deck DONE
 # Create Hands (active/ base) DONE
@@ -96,6 +109,7 @@ def pick_a_card(card_set: list[tuple], index=0) -> tuple:
 def round(base_deck: list[tuple]) -> tuple:
     round_deck = base_deck[:]
     shuffle(round_deck)
+
     player_1_hand = []
     player_2_hand = []
     for _ in range(6):
@@ -103,34 +117,33 @@ def round(base_deck: list[tuple]) -> tuple:
         player_2_hand.append(pick_a_card(round_deck))
     player_1_hand_base = player_1_hand[:]
     player_2_hand_base = player_2_hand[:]
-    print("Player 1 Hand:")
-    print_deck(player_1_hand)
-    print("Player 2 Hand:")
-    print_deck(player_2_hand)
-    box = []
-    box.append(pick_a_card(player_1_hand))
-    box.append(pick_a_card(player_1_hand))
-    box.append(pick_a_card(player_2_hand))
-    box.append(pick_a_card(player_2_hand))
-    print("Box: ")
-    print_deck(box)
+    # print("Player 1 Hand:")
+    # print_deck(player_1_hand)
+    # print("Player 2 Hand:")
+    # print_deck(player_2_hand)
 
-    print("Player 1 Hand:")
-    print_deck(player_1_hand)
-    print("Player 2 Hand:")
-    print_deck(player_2_hand)
+    box = box_init(player_1_hand, player_2_hand)
+
+    # print("Player 1 Hand:")
+    # print_deck(player_1_hand)
+    # print("Player 2 Hand:")
+    # print_deck(player_2_hand)
+
+    print("Round deck:")
+    print_deck(round_deck)
+    cut_card = pick_a_card(round_deck)
+    print_deck([cut_card])
 
 
 def main():
     base_deck = list(product(card_ranks, card_suits))
+    player_1_score = 0
+    player_2_score = 0
     # print("Base deck:")
     # print_deck(base_deck)
     round(base_deck)
     # print("Base deck after round:")
     # print_deck(base_deck)
-
-    player_1_score = 0
-    player_2_score = 0
 
 
 main()
