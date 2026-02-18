@@ -58,7 +58,8 @@ scoring_types = {
 }
 
 
-def print_deck_52(deck):
+def print_deck(deck: list[tuple]) -> None:
+    """Takes any list of cards and prints them out in 4 structured columns"""
     ns = 2
     ss = 14
     print("Printing...")
@@ -72,11 +73,14 @@ def print_deck_52(deck):
     print("DONE")
 
 
-# General function to get a card out of any set of cars (hand, box or deck!)
+# General function to get a card out of any set of cards (hand, box or deck!)
 # Needs to be changed to allow a choice rather than random.
 
 
 def pick_a_card(card_set: list[tuple]) -> tuple:
+    """
+    Remove and return a random (rank, suit) card from card_set.
+    """
     pick_a_card = card_set.pop(random.randint(0, len(card_set) - 1))
     print(f"The card chosen at random: {pick_a_card[0]} of {pick_a_card[1]}s")
     return pick_a_card
@@ -94,20 +98,20 @@ def round(base_deck: list[tuple]) -> tuple:
     shuffle(round_deck)
     pick_a_card(round_deck)
     print("Round deck:")
-    print_deck_52(round_deck)
+    print_deck(round_deck)
 
     pick_a_card(round_deck)
     print("Round deck:")
-    print_deck_52(round_deck)
+    print_deck(round_deck)
 
 
 def main():
     base_deck = list(product(card_ranks, card_suits))
     # print("Base deck:")
-    # print_deck_52(base_deck)
+    # print_deck(base_deck)
     round(base_deck)
     # print("Base deck after round:")
-    # print_deck_52(base_deck)
+    # print_deck(base_deck)
 
     player_1_score = 0
     player_2_score = 0
