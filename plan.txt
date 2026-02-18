@@ -1,0 +1,55 @@
+Things to delegate:
+--Creating deck 
+--Shuffling deck
+--Manipulating deck each round
+--Creating player hands
+--Letting players choose 2 cards to put into box
+--Creating Box(Crib)
+--Tracking cut card
+--Tracking scores live
+--Tracking total scores
+--Letting players choose a card to peg
+--Removing that card from active hand (still need to track hand for later scoring)
+--Add to pegging cards
+--Tracking pegging cards
+--Tracking pegging score
+--Resetting pegging when 31 reached/overflown
+--Scoring cards
+
+
+
+
+Main() -> nothing
+Creating base_deck
+Tracking total scores between round
+runs rounds till winner
+----------------------
+Round(base_deck) -> scores
+Shuffle deck
+Manipulate deck
+Create active hands (aswell as round hand to keep track?)
+Create Box (through Player_Choice, could make this a function prolly)
+THEN Create Cut Card
+pegging?
+Tracking pegging cards
+Tracking score updates live
+---------------------
+Pegging(card, current pegs) -> updated pegs, scores
+Track pegging score
+reset pegging if card + current pegs > 31
+Add to current pegging cards if not
+---------------------
+Player_Choice(hand) -> card, hand-card
+Letting players choose 2 cards to put into box (can do as 2 individual calls?)
+Letting players choose a card to peg
+Removing card from active hand via return
+
+
+
+Box creation function?
+Box_Init(hand, box) -> hand, box
+let player pick 2 cards from their hand
+add to box array
+return hand without 2 cards and box with 2 cards
+
+
