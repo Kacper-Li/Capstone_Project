@@ -77,18 +77,18 @@ def print_deck(deck: list[tuple]) -> None:
 # Needs to be changed to allow a choice rather than random.
 
 
-def pick_a_card(card_set: list[tuple]) -> tuple:
+def pick_a_card(card_set: list[tuple], index=0) -> tuple:
     """
     Remove and return a random (rank, suit) card from card_set.
     """
     pick_a_card = card_set.pop(random.randint(0, len(card_set) - 1))
-    print(f"The card chosen at random: {pick_a_card[0]} of {pick_a_card[1]}s")
+    # print(f"The card chosen at random: {pick_a_card[0]} of {pick_a_card[1]}s")
     return pick_a_card
 
 # Shuffle deck DONE
 # Manipulate deck DONE
-# Create Hands (active/ base) <--
-# Create box
+# Create Hands (active/ base) DONE
+# Create box <--
 # Get cut card
 # Pegging pipeline
 
@@ -103,6 +103,22 @@ def round(base_deck: list[tuple]) -> tuple:
         player_2_hand.append(pick_a_card(round_deck))
     player_1_hand_base = player_1_hand[:]
     player_2_hand_base = player_2_hand[:]
+    print("Player 1 Hand:")
+    print_deck(player_1_hand)
+    print("Player 2 Hand:")
+    print_deck(player_2_hand)
+    box = []
+    box.append(pick_a_card(player_1_hand))
+    box.append(pick_a_card(player_1_hand))
+    box.append(pick_a_card(player_2_hand))
+    box.append(pick_a_card(player_2_hand))
+    print("Box: ")
+    print_deck(box)
+
+    print("Player 1 Hand:")
+    print_deck(player_1_hand)
+    print("Player 2 Hand:")
+    print_deck(player_2_hand)
 
 
 def main():
