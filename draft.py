@@ -79,15 +79,30 @@ def print_deck(deck: list[tuple]) -> None:
 
 def pick_a_card(card_set: list[tuple], index=0) -> tuple:
     """
-    Remove and return a random (rank, suit) card from card_set.
+    Remove and return a random (rank, suit) card from card_set.\n
+    Manipulates the list of cards directly.
     """
     pick_a_card = card_set.pop(random.randint(0, len(card_set) - 1))
     # print(f"The card chosen at random: {pick_a_card[0]} of {pick_a_card[1]}s")
     return pick_a_card
 
 
+def hands_init(round_deck, player_1_hand, player_2_hand):
+    """Initialises hands, 6 cards each, from the deck. \n
+    Manipulated the lists directly."""
+    for _ in range(6):
+        player_1_hand.append(pick_a_card(round_deck))
+        player_2_hand.append(pick_a_card(round_deck))
+
+    # print("Player 1 Hand:")
+    # print_deck(player_1_hand)
+    # print("Player 2 Hand:")
+    # print_deck(player_2_hand)
+
+
 def box_init(player_1_hand: list[tuple], player_2_hand: list[tuple]) -> list[tuple]:
-    """Generates and returns the box from the two players hands."""
+    """Generates and returns the box from the two players hands. \n
+    Modifies the hand lists directly"""
     box = []
     box.append(pick_a_card(player_1_hand))
     box.append(pick_a_card(player_1_hand))
@@ -101,26 +116,19 @@ def box_init(player_1_hand: list[tuple], player_2_hand: list[tuple]) -> list[tup
 # Shuffle deck DONE
 # Manipulate deck DONE
 # Create Hands (active/ base) DONE
-# Create box <--
-# Get cut card
-# Pegging pipeline
+# Create box DONE
+# Get cut card DONE
+# Pegging pipeline <--
 
 
 def round(base_deck: list[tuple]) -> tuple:
     round_deck = base_deck[:]
     shuffle(round_deck)
 
-    player_1_hand = []
-    player_2_hand = []
-    for _ in range(6):
-        player_1_hand.append(pick_a_card(round_deck))
-        player_2_hand.append(pick_a_card(round_deck))
+    player_1_hand, player_2_hand = [], []
+    hands_init(round_deck, player_1_hand, player_2_hand)
     player_1_hand_base = player_1_hand[:]
     player_2_hand_base = player_2_hand[:]
-    # print("Player 1 Hand:")
-    # print_deck(player_1_hand)
-    # print("Player 2 Hand:")
-    # print_deck(player_2_hand)
 
     box = box_init(player_1_hand, player_2_hand)
 
