@@ -96,13 +96,13 @@ def pick_a_card(card_set: list[tuple]) -> tuple:
 def round(base_deck: list[tuple]) -> tuple:
     round_deck = base_deck[:]
     shuffle(round_deck)
-    pick_a_card(round_deck)
-    print("Round deck:")
-    print_deck(round_deck)
-
-    pick_a_card(round_deck)
-    print("Round deck:")
-    print_deck(round_deck)
+    player_1_hand = []
+    player_2_hand = []
+    for _ in range(6):
+        player_1_hand.append(pick_a_card(round_deck))
+        player_2_hand.append(pick_a_card(round_deck))
+    player_1_hand_base = player_1_hand[:]
+    player_2_hand_base = player_2_hand[:]
 
 
 def main():
