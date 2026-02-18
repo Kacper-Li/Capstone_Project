@@ -71,9 +71,19 @@ def print_deck_52(deck):
         print(line)
     print("DONE")
 
+
+# General function to get a card out of any set of cars (hand, box or deck!)
+# Needs to be changed to allow a choice rather than random.
+
+
+def pick_a_card(card_set: list[tuple]) -> tuple:
+    pick_a_card = card_set.pop(random.randint(0, len(card_set) - 1))
+    print(f"The card chosen at random: {pick_a_card[0]} of {pick_a_card[1]}s")
+    return pick_a_card
+
 # Shuffle deck DONE
-# Manipulate deck <---
-# Create Hands (active/ base)
+# Manipulate deck DONE
+# Create Hands (active/ base) <--
 # Create box
 # Get cut card
 # Pegging pipeline
@@ -82,9 +92,11 @@ def print_deck_52(deck):
 def round(base_deck: list[tuple]) -> tuple:
     round_deck = base_deck[:]
     shuffle(round_deck)
-    # pick_a_card = round_deck.pop(random.randint(0, len(round_deck) - 1))
-    # print("This is the card chosen at random:",
-    #       pick_a_card, "\n This is the new deck:")
+    pick_a_card(round_deck)
+    print("Round deck:")
+    print_deck_52(round_deck)
+
+    pick_a_card(round_deck)
     print("Round deck:")
     print_deck_52(round_deck)
 
