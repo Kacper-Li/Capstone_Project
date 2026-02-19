@@ -113,15 +113,23 @@ def box_init(player_1_hand: list[tuple], player_2_hand: list[tuple]) -> list[tup
     return box
 
 
-# Shuffle deck DONE
-# Manipulate deck DONE
-# Create Hands (active/ base) DONE
-# Create box DONE
-# Get cut card DONE
-# Pegging pipeline <--
+def pegging_stage(pegging_pile: list[tuple], p1_hand: list[tuple], p2_hand: list[tuple]):
+    print("NOT MADE YET")
+
+
+def calculate_score(generic):
+    print("NOT MADE YET")
+
+    # Shuffle deck DONE
+    # Manipulate deck DONE
+    # Create Hands (active/ base) DONE
+    # Create box DONE
+    # Get cut card DONE
+    # Pegging pipeline <--
 
 
 def round(base_deck: list[tuple]) -> tuple:
+    """The main linking of functions, and game flow, to allow the overall game to be played."""
     round_deck = base_deck[:]
     shuffle(round_deck)
 
@@ -141,6 +149,13 @@ def round(base_deck: list[tuple]) -> tuple:
     print_deck(round_deck)
     cut_card = pick_a_card(round_deck)
     print_deck([cut_card])
+
+    pegging_pile = []
+    pegging_stage(pegging_pile, player_1_hand, player_2_hand)
+
+    calculate_score(player_1_hand_base, cut_card)
+    calculate_score(player_2_hand_base, cut_card)
+    calculate_score(box, cut_card)
 
 
 def main():
