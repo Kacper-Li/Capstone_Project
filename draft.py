@@ -38,6 +38,9 @@ from itertools import product
 from random import shuffle
 import random
 
+
+Card = tuple[str, str]
+
 card_suits = ['Club', 'Diamond', 'Heart', 'Spade']
 card_ranks = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']
 scoring_types = {
@@ -58,7 +61,7 @@ scoring_types = {
 }
 
 
-def print_deck(deck: list[tuple]) -> None:
+def print_deck(deck: list[Card]) -> None:
     """Takes any list of cards and prints them out in 4 structured columns"""
     ns = 2
     ss = 14
@@ -77,7 +80,7 @@ def print_deck(deck: list[tuple]) -> None:
 # Needs to be changed to allow a choice rather than random.
 
 
-def pick_a_card(card_set: list[tuple], index=0) -> tuple:
+def pick_a_card(card_set: list[Card], index=0) -> Card:
     """
     Remove and return a random (rank, suit) card from card_set.\n
     Manipulates the list of cards directly.
@@ -87,7 +90,11 @@ def pick_a_card(card_set: list[tuple], index=0) -> tuple:
     return pick_a_card
 
 
-def hands_init(round_deck, player_1_hand, player_2_hand):
+def hands_init(
+    round_deck: list[Card],
+    player_1_hand: list[Card],
+    player_2_hand: list[Card]
+) -> None:
     """Initialises hands, 6 cards each, from the deck. \n
     Manipulated the lists directly."""
     for _ in range(6):
@@ -100,7 +107,10 @@ def hands_init(round_deck, player_1_hand, player_2_hand):
     # print_deck(player_2_hand)
 
 
-def box_init(player_1_hand: list[tuple], player_2_hand: list[tuple]) -> list[tuple]:
+def box_init(
+    player_1_hand: list[Card],
+    player_2_hand: list[Card]
+) -> list[Card]:
     """Generates and returns the box from the two players hands. \n
     Modifies the hand lists directly"""
     box = []
@@ -113,11 +123,15 @@ def box_init(player_1_hand: list[tuple], player_2_hand: list[tuple]) -> list[tup
     return box
 
 
-def pegging_stage(pegging_pile: list[tuple], p1_hand: list[tuple], p2_hand: list[tuple]):
+def pegging_stage(
+    pegging_pile: list[Card],
+    p1_hand: list[Card],
+    p2_hand: list[Card]
+) -> tuple[int, int]:
     print("NOT MADE YET")
 
 
-def calculate_score(generic):
+def calculate_score(generic) -> int:
     print("NOT MADE YET")
 
     # Shuffle deck DONE
@@ -128,7 +142,7 @@ def calculate_score(generic):
     # Pegging pipeline <--
 
 
-def round(base_deck: list[tuple]) -> tuple:
+def round(base_deck: list[Card]) -> tuple[int, int]:
     """The main linking of functions, and game flow, to allow the overall game to be played."""
     round_deck = base_deck[:]
     shuffle(round_deck)
