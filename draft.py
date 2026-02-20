@@ -82,7 +82,7 @@ def print_deck(deck: list[Card]) -> None:
 
 def pick_a_card(card_set: list[Card], index=0) -> Card:
     """
-    Remove and return a random (rank, suit) card from card_set.\n
+    Remove and return a random (rank, suit) card from any card_set.\n
     Manipulates the list of cards directly.
     """
     pick_a_card = card_set.pop(random.randint(0, len(card_set) - 1))
@@ -131,15 +131,15 @@ def pegging_stage(
     print("NOT MADE YET")
 
 
-def calculate_score(generic) -> int:
+def calculate_score(*args) -> int:
     print("NOT MADE YET")
 
-    # Shuffle deck DONE
-    # Manipulate deck DONE
-    # Create Hands (active/ base) DONE
-    # Create box DONE
-    # Get cut card DONE
-    # Pegging pipeline <--
+# Shuffle deck DONE
+# Manipulate deck DONE
+# Create Hands (active/ base) DONE
+# Create box DONE
+# Get cut card DONE
+# Pegging pipeline <--
 
 
 def round(base_deck: list[Card]) -> tuple[int, int]:
@@ -183,4 +183,5 @@ def main():
     # print_deck(base_deck)
 
 
-main()
+if __name__ == "__main__":
+    main()
