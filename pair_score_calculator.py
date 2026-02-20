@@ -7,8 +7,8 @@ def find_biggest_pair(cards_played: list[Card]) -> str:
     card_no = len(cards_played)
     if card_no < 2:
         return 0
-    print("Started")
-    print_deck(cards_played)
+    # print("Pair function begins")
+    # print_deck(cards_played)
     cards_relevant = cards_played[:]
     if card_order(cards_relevant[-1][0]) != card_order(cards_relevant[-2][0]):
         return 0
