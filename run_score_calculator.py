@@ -1,61 +1,6 @@
-from draft import Card
-from draft import print_deck
-from draft import scoring_types, card_suits, card_ranks
-
-
-def card_value(card: Card) -> int:
-    """Returns proper card values, as according to pegging values."""
-    if card in ['Q', 'J', 'K']:
-        return 10
-    elif card == 'A':
-        return 1
-    else:
-        return int(card)
-
-
-def card_order(card: Card) -> int:
-    """Returns correct order of cards, for run calculation"""
-    if card == 'J':
-        return 11
-    elif card == 'Q':
-        return 12
-    elif card == 'K':
-        return 13
-    elif card == 'A':
-        return 1
-    else:
-        return int(card)
-
-
-def scoring(cards: list[Card]) -> int:
-    amount = len(cards)
-    score = 0
-    if amount == 1:
-        return 0
-    elif amount == 2:
-        if cards[0][0] == cards[1][0]:
-            score += scoring_types['pair']
-        if cards[0][0] + cards[1][0] == 15:
-            score += scoring_types['15 for two']
-    elif amount == 3:
-        if cards[1][0] == cards[2][0]:
-            if cards[0][0] == cards[1][0]:
-                score += scoring_types['pair royale']
-            else:
-                score += scoring_types['pair']
-        score += find_biggest_run(cards[:])
-    elif amount == 4:
-        "check all but flush and 5run"
-    elif amount == 5:
-        "check all but 6 run"
-    elif amount == 6:
-        "check all but 7 run"
-    elif amount == 7:
-        "check everything"
-    elif amount == 8:
-        "check everything"
-    else:
-        return 0
+from card_utils import Card
+from card_utils import print_deck
+from card_utils import card_order
 
 
 # To check for a run, you MUST check every length combo.\n
@@ -98,14 +43,6 @@ def find_biggest_run(cards_played: list[Card]) -> int:
 # IN CONCLUSION, YOU CALCULATE THE SCORE FROM CURRENT CARD.
 # PREVIOUS SCORES ARE IRRELEVANT.
 # Cribbage test hands covering edge cases
-pair0 = [('7', 'Heart'), ('7', 'Club')]
-# Regular pair (2 points)
-pair1 = [('9', 'Heart'), ('9', 'Club'), ('9', 'Diamond')]
-# Pair Royale / Three of a kind (6 points)
-pair2 = [('4', 'Heart'), ('4', 'Club'), ('4', 'Diamond'), ('4', 'Spade')]
-# Double Pair Royale / Four of a kind (12 points)
-pair3 = [('6', 'Heart'), ('6', 'Club'), ('9', 'Diamond'), ('9', 'Spade')]
-# Two pairs with a gap (2 points)
 
 run0 = [('3', 'Heart'), ('4', 'Club'), ('5', 'Diamond')]
 # Regular run 3-4-5 (3 points)
