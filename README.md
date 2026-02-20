@@ -1,6 +1,6 @@
 Capstone project to feature a card game "Crib" coded in python.
 # HOW TO RUN
-python3 game.py
+python3 game.py -> currently draft.py
 # OVERVIEW
 There will be a main function aswell as twenty others.
 # PLAN
