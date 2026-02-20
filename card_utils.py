@@ -65,6 +65,22 @@ def print_deck(deck: list[Card]) -> None:
     # print("DONE")
 
 
+def hands_init(
+    round_deck: list[Card],
+    player_1_hand: list[Card],
+    player_2_hand: list[Card]
+) -> None:
+    """Initialises hands, 6 cards each, from the deck. \n
+    Manipulated the lists directly."""
+    for _ in range(6):
+        player_1_hand.append(pick_a_card(round_deck))
+        player_2_hand.append(pick_a_card(round_deck))
+    # print("Player 1 Hand:")
+    # print_deck(player_1_hand)
+    # print("Player 2 Hand:")
+    # print_deck(player_2_hand)
+
+
 def pick_a_card(card_set: list[Card], index=0) -> Card:
     """
     Remove and return a random (rank, suit) card from any card_set.\n
