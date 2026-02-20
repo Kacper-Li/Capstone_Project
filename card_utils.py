@@ -2,6 +2,7 @@ import random
 
 scoring_types = {
     'type': "score_value",
+    '0': 0,
     '15 for two': 2,
     'pair': 2,
     'pair royale': 6,
