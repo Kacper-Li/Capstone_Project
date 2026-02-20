@@ -1,3 +1,4 @@
+import random
 
 scoring_types = {
     'type': "score_value",
@@ -47,3 +48,28 @@ def card_order(card: Card) -> int:
         return 1
     else:
         return int(card)
+
+
+def print_deck(deck: list[Card]) -> None:
+    """Takes any list of cards and prints them out in 4 structured columns"""
+    ns = 2
+    ss = 14
+    # print("Printing...")
+    for i in range(0, len(deck), 4):
+        formatted_parts = []
+        for card in deck[i:i+4]:
+            card_string = f"{card[0]:{ns}} of {card[1]}s"
+            formatted_parts.append(f"{card_string:{ss}}")
+        line = ' | '.join(formatted_parts)
+        print(line)
+    # print("DONE")
+
+
+def pick_a_card(card_set: list[Card], index=0) -> Card:
+    """
+    Remove and return a random (rank, suit) card from any card_set.\n
+    Manipulates the list of cards directly.
+    """
+    pick_a_card = card_set.pop(random.randint(0, len(card_set) - 1))
+    # print(f"The card chosen at random: {pick_a_card[0]} of {pick_a_card[1]}s")
+    return pick_a_card
