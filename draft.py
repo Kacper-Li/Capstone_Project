@@ -41,28 +41,11 @@ from card_utils import pick_a_card
 from card_utils import print_deck
 from card_utils import card_ranks
 from card_utils import card_suits
+from card_utils import hands_init
 
 
 # General function to get a card out of any set of cards (hand, box or deck!)
 # Needs to be changed to allow a choice rather than random.
-
-
-def hands_init(
-    round_deck: list[Card],
-    player_1_hand: list[Card],
-    player_2_hand: list[Card]
-) -> None:
-    """Initialises hands, 6 cards each, from the deck. \n
-    Manipulated the lists directly."""
-    for _ in range(6):
-        player_1_hand.append(pick_a_card(round_deck))
-        player_2_hand.append(pick_a_card(round_deck))
-
-    # print("Player 1 Hand:")
-    # print_deck(player_1_hand)
-    # print("Player 2 Hand:")
-    # print_deck(player_2_hand)
-
 
 def box_init(
     player_1_hand: list[Card],
