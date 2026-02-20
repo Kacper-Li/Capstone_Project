@@ -21,10 +21,16 @@ def pegging_scoring(cards: list[Card]) -> int:
     print("Cards sending in: ")
     print_deck(cards)
     score += find_biggest_run(cards)
-    score += find_biggest_pair(cards)
+    # print(f"pair gives {scoring_types[find_biggest_pair(cards)]}")
+    score += scoring_types[find_biggest_pair(cards)]
     print(f"Total score of card placed: {score}")
     return score
 
+
+pair2 = [('4', 'Heart'), ('4', 'Club'), ('4', 'Diamond'), ('4', 'Spade')]
+# Double Pair Royale / Four of a kind (12 points)
+pair3 = [('6', 'Heart'), ('6', 'Club'), ('9', 'Diamond'), ('9', 'Spade')]
+# Two pairs with a gap (2 points)
 
 run1 = [('3', 'Heart'), ('5', 'Club'), ('4', 'Diamond')]
 # Run 3-4-5 out of order (3 points), Total:12
@@ -49,6 +55,9 @@ pairwith15 = [('7', 'Heart'), ('4', 'Club'), ('4', 'Diamond')]
 # Tests:
 # pegging_scoring(run1)
 # pegging_scoring(run2)
+# pegging_scoring(pairwith15)
+# pegging_scoring(pair2)
+# pegging_scoring(pair3)
 # pegging_scoring(run3)
 # pegging_scoring(fifteen)
 # pegging_scoring(thirtyonewith15)
