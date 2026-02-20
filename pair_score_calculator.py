@@ -37,11 +37,12 @@ pair2 = [('4', 'Heart'), ('4', 'Club'), ('4', 'Diamond'), ('4', 'Spade')]
 pair3 = [('6', 'Heart'), ('6', 'Club'), ('9', 'Diamond'), ('9', 'Spade')]
 # Two pairs with a gap (2 points)
 
-test = find_biggest_pair(pair0)
-print(f"Found: {test}")
-test = find_biggest_pair(pair1)
-print(f"Found: {test}")
-test = find_biggest_pair(pair2)
-print(f"Found: {test}")
-test = find_biggest_pair(pair3)
-print(f"Found: {test}")
+# Tests:
+# test = find_biggest_pair(pair0)
+# print(f"Found: {test}")
+# test = find_biggest_pair(pair1)
+# print(f"Found: {test}")
+# test = find_biggest_pair(pair2)
+# print(f"Found: {test}")
+# test = find_biggest_pair(pair3)
+# print(f"Found: {test}")

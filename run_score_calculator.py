@@ -63,7 +63,7 @@ thirtyone0 = [('10', 'Heart'), ('J', 'Club'),
 pairwith15 = [('7', 'Heart'), ('4', 'Club'), ('4', 'Diamond')]
 # Pair + 15: pair of 4s (2 points), 11 + 4 = 15 (2 points)
 
-
+# Tests:
 # run_pts = find_biggest_run(run0)
 # print(f"The amount of points this run has is {run_pts}")
 # run_pts = find_biggest_run(run1)
