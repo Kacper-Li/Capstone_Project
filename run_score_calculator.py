@@ -15,7 +15,7 @@ def is_run(sorted_cards: list[Card]) -> int:
     Returns the length of found run, otherwise 0 for no run found."""
     for j in range(len(sorted_cards) - 1, 0, -1):
         # print(sorted_cards[j])
-        if card_order(sorted_cards[j][0]) - card_order(sorted_cards[j-1][0]) != 1:
+        if card_order(sorted_cards[j]) - card_order(sorted_cards[j-1]) != 1:
             # print(f"Should break here with {sorted_cards[j-1]}")
             return 0
     return len(sorted_cards)
@@ -26,7 +26,7 @@ def find_biggest_run(cards_played: list[Card]) -> int:
     if len(cards_played) < 3:
         return 0
     # print("Initial:")
-    # print_deck(cards_played)
+    print_deck(cards_played)
     # print("")
     for i in range(0, len(cards_played) - 1):
         sorted_cards = sorted(
