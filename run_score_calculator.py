@@ -30,7 +30,7 @@ def find_biggest_run(cards_played: list[Card]) -> int:
     # print("")
     for i in range(0, len(cards_played) - 1):
         sorted_cards = sorted(
-            cards_played[i:], key=lambda card: card_order(card[0]))
+            cards_played[i:], key=lambda card: card_order(card))
         # print(f"In loop {len(cards_played) - i}:")
         # print_deck(sorted_cards)
         run_count = is_run(sorted_cards)
@@ -80,4 +80,8 @@ thirtyonewith15 = [('8', 'Heart'), ('7', 'Club'),
 # print(f"The amount of points this run has is {run_pts}")
 # test3 = [('A', 'Spade'), ('9', 'Spade'), ('9', 'Heart'), ('8', 'Diamond')]
 # out = find_biggest_run(test3)
+# print(f"The amount of points this run has is {out}")
+# test4 = [('3', 'Diamond'), ('K', 'Diamond'),
+#          ('2', 'Diamond'), ('10', 'Heart'), ('3', 'Spade')]
+# out = find_biggest_run(test4)
 # print(f"The amount of points this run has is {out}")
