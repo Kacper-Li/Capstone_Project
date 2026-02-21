@@ -11,15 +11,6 @@ from card_utils import card_ranks, card_suits, scoring_types
 from scoring_calculation import pegging_scoring
 
 
-# Source - https://stackoverflow.com/a/50548011
-# Posted by Tom Roth
-# Retrieved 2026-02-20, License - CC BY-SA 4.0
-import numpy as np
-# x1 = (0, 3)
-# x2 = (4, 2)
-# tuple(np.add(x1, x2))
-
-
 def pegging_init():
     """Initialises everything for pegging to be tested."""
     print("Pegging setup begins")
@@ -58,8 +49,13 @@ def pegging_stage(
     """Runs until both hands run out of cards.\nReturns the scores"""
     card_pile: list[Card] = []
 
-    while p1_hand or p2_hand != []:
+    while p1_hand != [] or p2_hand != []:
         last = ''
+        # if p1 hand is empty, move on. otherwise let p1 have their turn
+        # WANT:
+        # if p1 has no valid cards, let p2 go, if p2 has no valid cards
+        # reset peg
+        # if p1 hand empty
         if p1_hand == []:
             pass
         else:
@@ -90,7 +86,8 @@ def player_turn(
     card_pile: list[Card],
     player: str,
 ) -> tuple[list[Card], int, int]:
-    """Lets a player place a card, scores it, returns card pile and score deltas."""
+    """Lets a player place a card, scores it, returns card pile and score deltas.
+    \nHandles pegging reset"""
     if player == "Player 1":
         other_player = "Player 2"
     else:
