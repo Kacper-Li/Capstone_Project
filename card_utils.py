@@ -96,5 +96,5 @@ def total_cards_value(cards: list[Card]) -> int:
     """Takes in some cards, puts out their combined rank value!"""
     total_card_rank = 0
     for card in cards:
-        total_card_rank += card_value(card[0])
+        total_card_rank += card_value(card)
     return total_card_rank
