@@ -2,8 +2,11 @@ from card_utils import print_deck
 from card_utils import Card
 from card_utils import scoring_types
 from card_utils import total_cards_value
+from card_utils import card_value
 from run_score_calculator import find_biggest_run
 from pair_score_calculator import find_biggest_pair
+from pair_score_calculator import find_all_pairs
+import itertools
 
 
 def pegging_scoring(cards: list[Card]) -> int:
@@ -33,6 +36,62 @@ def pegging_scoring(cards: list[Card]) -> int:
         print("No points", end='')
     print()
     return score
+
+
+def hand_scoring(hand: list[Card], cut_card: Card) -> int:
+    """Takes a hand of cards, returns the score value"""
+    score = 0
+    hand_plus1 = hand.append(cut_card)
+    # print("Cards sending into run and pair calculations: ")
+    # print_deck(cards)
+
+    # will need to make function to find every combo for 15
+    fifteens = find_all_fifteens(hand_plus1)
+    run = find_biggest_run(hand_plus1)
+    flush = find_hand_flush(hand, cut_card)
+    pairs = find_all_pairs(hand_plus1)
+    jack = find_jack(hand, cut_card)
+
+    score += sum([scoring_types[fifteen] for fifteen in fifteens])
+    score += scoring_types[jack]
+    score += run
+    score += sum([scoring_types[pair] for pair in pairs])
+
+    if run != 0:
+        print(f"Run of {run} ", end='')
+    if pairs != []:
+        print(pairs)
+
+    # print(f"Total score of card placed: {score}")
+    if score == 0:
+        print("No points", end='')
+    print()
+    return score
+
+
+def find_all_fifteens(cards: list[Card]) -> list[str]:
+    raw_cards = [card_value(card) for card in cards]
+    # print(raw_cards)
+    fifteens = []
+    for value in range(len(raw_cards) + 1):
+        combination = itertools.combinations(raw_cards, value)
+        for combo in combination:
+            # print(sum(combo))
+            if sum(combo) == 15:
+                fifteens.append('15 for two')
+    return fifteens
+
+
+def find_hand_flush(hand: list[Card], cut_card: Card) -> str:
+    pass
+
+
+def find_jack(cards: list[Card], cut_card: Card) -> str:
+    """Returns '1 for his nobs' if jack same suit as cut card found. Else 0."""
+    for card in cards:
+        if card[0] == 'J' and card[1] == cut_card[1]:
+            return '1 for his nobs'
+    return '0'
 
 
 pair2 = [('4', 'Heart'), ('4', 'Club'), ('4', 'Diamond'), ('4', 'Spade')]
