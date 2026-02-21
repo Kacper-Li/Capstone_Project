@@ -26,7 +26,7 @@ def find_biggest_run(cards_played: list[Card]) -> int:
     if len(cards_played) < 3:
         return 0
     # print("Initial:")
-    print_deck(cards_played)
+    # print_deck(cards_played)
     # print("")
     for i in range(0, len(cards_played) - 1):
         sorted_cards = sorted(

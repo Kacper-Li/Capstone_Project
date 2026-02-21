@@ -54,8 +54,6 @@ thirtyone0 = [('10', 'Heart'), ('J', 'Club'),
               ('A', 'Diamond'), ('Q', 'Spade')]
 # Total adding to 31 (2 points)
 
-thirtyonewith15 = [('8', 'Heart'), ('7', 'Club'),
-                   ('J', 'Heart'), ('6', 'Club')]
 # 15 + 31: 8 + 7 = 15, total is 31 (4 points)
 pairwith15 = [('7', 'Heart'), ('4', 'Club'), ('4', 'Diamond')]
 # Pair + 15: pair of 4s (2 points), 11 + 4 = 15 (2 points)
