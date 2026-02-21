@@ -42,31 +42,66 @@ def find_biggest_run(cards_played: list[Card]) -> int:
     return 0
 
 
+def find_hand_run(cards_played: list[Card]) -> int:
+    """Checks for the largest run in supplied cards_played pile."""
+    print("Initial:")
+    print_deck(cards_played)
+    print("")
+    run_count = 1
+    multiplier = 1
+    rank_count = 1
+    sorted_cards = sorted(
+        cards_played[:], key=lambda card: card_order(card))
+    # print_deck(sorted_cards)
+    for i in range(0, 4, 1):
+        current = card_order(sorted_cards[i])
+        next = card_order(sorted_cards[i + 1])
+        # print(f"Current: {current}, Next: {next}")
+        if current == next:
+            rank_count += 1
+        elif (next - current) == 1:
+            multiplier *= rank_count
+            rank_count = 1
+            run_count += 1
+        elif (next - current) > 1:
+            multiplier *= rank_count
+            if run_count >= 3:
+                return run_count * multiplier
+            multiplier = 1
+            rank_count = 1
+            run_count = 0
+            # print(f"Card about to be removed from search is {cards_played[i]}")
+            # print("Reached end of run calculator")
+    # print(f"Total run value:")
+    return run_count * multiplier
+
 # IN CONCLUSION, YOU CALCULATE THE SCORE FROM CURRENT CARD.
 # PREVIOUS SCORES ARE IRRELEVANT.
 # Cribbage test hands covering edge cases
 
-run0 = [('3', 'Heart'), ('4', 'Club'), ('5', 'Diamond')]
-# Regular run 3-4-5 (3 points)
-run1 = [('3', 'Heart'), ('5', 'Club'), ('4', 'Diamond')]
-# Run 3-4-5 out of order (3 points)
-run2 = [('3', 'Club'), ('2', 'Spade'), ('5', 'Diamond'),
-        ('4', 'Heart'), ('7', 'Club'), ('6', 'Heart')]
-# Run of six completely out of order: 3-2-5-4-7-6 (6 points)
-run3 = [('4', 'Heart'), ('7', 'Club'), ('6', 'Diamond'), ('5', 'Spade')]
-# Run of four: 4-5-6-7 (4 points), total 22 < 31
 
-fifteen5 = [('8', 'Heart'), ('7', 'Club')]
-# Fifteen total: 8 + 7 = 15 (2 points)
-thirtyone0 = [('10', 'Heart'), ('J', 'Club'),
-              ('A', 'Diamond'), ('Q', 'Spade')]
-# Total adding to 31 (2 points)
+# run0 = [('3', 'Heart'), ('4', 'Club'), ('5', 'Diamond')]
+# # Regular run 3-4-5 (3 points)
+# run1 = [('3', 'Heart'), ('5', 'Club'), ('4', 'Diamond')]
+# # Run 3-4-5 out of order (3 points)
+# run2 = [('3', 'Club'), ('2', 'Spade'), ('5', 'Diamond'),
+#         ('4', 'Heart'), ('7', 'Club'), ('6', 'Heart')]
+# # Run of six completely out of order: 3-2-5-4-7-6 (6 points)
+# run3 = [('4', 'Heart'), ('7', 'Club'),
+#         ('6', 'Diamond'), ('5', 'Spade')]
+# # Run of four: 4-5-6-7 (4 points), total 22 < 31
 
-pairwith15 = [('7', 'Heart'), ('4', 'Club'), ('4', 'Diamond')]
-# Pair + 15: pair of 4s (2 points), 11 + 4 = 15 (2 points)
-thirtyonewith15 = [('8', 'Heart'), ('7', 'Club'),
-                   ('J', 'Heart'), ('6', 'Club')]
-# 15 + 31: 8 + 7 = 15, total is 31 (4 points)
+# fifteen5 = [('8', 'Heart'), ('7', 'Club')]
+# # Fifteen total: 8 + 7 = 15 (2 points)
+# thirtyone0 = [('10', 'Heart'), ('J', 'Club'),
+#               ('A', 'Diamond'), ('Q', 'Spade')]
+# # Total adding to 31 (2 points)
+
+# pairwith15 = [('7', 'Heart'), ('4', 'Club'), ('4', 'Diamond')]
+# # Pair + 15: pair of 4s (2 points), 11 + 4 = 15 (2 points)
+# thirtyonewith15 = [('8', 'Heart'), ('7', 'Club'),
+#                    ('J', 'Heart'), ('6', 'Club')]
+# # 15 + 31: 8 + 7 = 15, total is 31 (4 points)
 
 
 # Tests:
@@ -85,3 +120,28 @@ thirtyonewith15 = [('8', 'Heart'), ('7', 'Club'),
 #          ('2', 'Diamond'), ('10', 'Heart'), ('3', 'Spade')]
 # out = find_biggest_run(test4)
 # print(f"The amount of points this run has is {out}")
+
+# run1 = [('7', 'Club'), ('8', 'Spade'), ('9', 'Diamond'),
+#         ('7', 'Heart'), ('8', 'Club')]
+# run2 = [('1', 'Club'), ('2', 'Spade'), ('3', 'Diamond'),
+#         ('3', 'Heart'), ('4', 'Club')]
+# run3 = [('1', 'Club'), ('2', 'Spade'), ('3', 'Diamond'),
+#         ('3', 'Heart'), ('3', 'Club')]
+# run4 = [('2', 'Club'), ('3', 'Spade'), ('4', 'Diamond'),
+#         ('5', 'Heart'), ('5', 'Club')]
+# run5 = [('2', 'Club'), ('2', 'Spade'), ('3', 'Diamond'),
+#         ('3', 'Heart'), ('4', 'Club')]
+# run6 = [('7', 'Club'), ('8', 'Spade'), ('9', 'Diamond'),
+#         ('J', 'Heart'), ('Q', 'Club')]
+# run7 = [('10', 'Club'), ('J', 'Spade'), ('Q', 'Diamond'),
+#         ('K', 'Heart'), ('1', 'Club')]
+# run8 = [('4', 'Club'), ('5', 'Spade'), ('7', 'Diamond'),
+#         ('8', 'Heart'), ('9', 'Club')]
+# run9 = [('6', 'Club'), ('7', 'Spade'), ('8', 'Diamond'),
+#         ('8', 'Heart'), ('9', 'Club')]
+# run10 = [('9', 'Club'), ('10', 'Spade'), ('J', 'Diamond'),
+#          ('Q', 'Heart'), ('K', 'Club')]
+# hand1 = [('5', 'Diamond'), ('10', 'Heart'), ('J', 'Heart'), ('Q', 'Heart')]
+# hand1.append(('5', 'Spade'))
+# x = find_hand_run(run1)
+# print(x)
