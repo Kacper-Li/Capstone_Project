@@ -1,7 +1,7 @@
 from card_utils import print_deck
 from card_utils import Card
 from card_utils import scoring_types
-from card_utils import card_value
+from card_utils import total_cards_value
 from run_score_calculator import find_biggest_run
 from pair_score_calculator import find_biggest_pair
 
