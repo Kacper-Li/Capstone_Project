@@ -15,15 +15,25 @@ def pegging_scoring(cards: list[Card]) -> int:
     if total_card_rank > 31:
         return -1
     elif total_card_rank == 15:
+        print("Fifteen for two ", end='')
         score += 2
     elif total_card_rank == 31:
+        print("31 for 2 ", end='')
         score += 2
-    print("Cards sending in: ")
-    print_deck(cards)
-    score += find_biggest_run(cards)
-    # print(f"pair gives {scoring_types[find_biggest_pair(cards)]}")
+    # print("Cards sending into run and pair calculations: ")
+    # print_deck(cards)
+    run = find_biggest_run(cards)
+    pair = find_biggest_pair(cards)
+    if run != 0:
+        print(f"Run of {run} ", end='')
+    score += run
+    if pair != '0':
+        print(pair + ' ', end='')
     score += scoring_types[find_biggest_pair(cards)]
-    print(f"Total score of card placed: {score}")
+    # print(f"Total score of card placed: {score}")
+    if score == 0:
+        print("No points", end='')
+    print()
     return score
 
 
@@ -61,3 +71,9 @@ pairwith15 = [('7', 'Heart'), ('4', 'Club'), ('4', 'Diamond')]
 # pegging_scoring(run3)
 # pegging_scoring(fifteen)
 # pegging_scoring(thirtyonewith15)
+
+# Tests generated from game
+# test1 = []
+# test2 = []
+
+# pegging_scoring(test3)
