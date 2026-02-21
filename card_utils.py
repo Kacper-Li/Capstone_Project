@@ -90,3 +90,10 @@ def pick_a_card(card_set: list[Card], index=0) -> Card:
     pick_a_card = card_set.pop(random.randint(0, len(card_set) - 1))
     # print(f"The card chosen at random: {pick_a_card[0]} of {pick_a_card[1]}s")
     return pick_a_card
+
+
+def total_cards_value(cards: list[Card]) -> int:
+    """Takes in some cards, puts out their combined rank value!"""
+    for card in cards:
+        total_card_rank += card_value(card[0])
+    return total_card_rank
