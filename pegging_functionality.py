@@ -49,32 +49,42 @@ def pegging_stage(
     card_pile: list[Card] = []
 
     while p1_hand and p2_hand != []:
-        card_pile.append(pick_a_card(p1_hand))
-        turn_score = pegging_scoring(card_pile)
-        if turn_score == -1:
-            card_pile = [card_pile[-1]]
-            print("card pile reset---------------------")
-            turn_score = 0
-            print("Player 2 gets 1 for go")
-            p2_score += 1
-        print("p1 card pile:", card_pile)
-        print(f"Player 1 gets {turn_score}")
-        print("Next: ", end='')
-        p1_score += turn_score
-        card_pile.append(pick_a_card(p2_hand))
-        turn_score = pegging_scoring(card_pile)
-        if turn_score == -1:
-            card_pile = [card_pile[-1]]
-            print("card pile reset---------------------")
-            turn_score = 0
-            print("Player 1 gets 1 for go")
-            p1_score += 1
-        print("p2 card pile:", card_pile)
-        print(f"Player 2 gets {turn_score}")
-        print("Next: ", end='')
-        p2_score += turn_score
 
+        card_pile, p1_diff, p2_diff = player_turn(
+            p1_hand, card_pile, "Player 1")
+        p1_score += p1_diff
+        p2_score += p2_diff
+
+        card_pile, p2_diff, p1_diff = player_turn(
+            p2_hand, card_pile, "Player 2")
+        p2_score += p2_diff
+        p1_score += p1_diff
     return p1_score, p2_score
+
+
+def player_turn(
+    hand: list[Card],
+    card_pile: list[Card],
+    player: str,
+) -> tuple[list[Card], int, int]:
+    """Lets a player place a card, scores it, returns card pile and score deltas."""
+    if player == "Player 1":
+        other_player = "Player 2"
+    else:
+        other_player = "Player 1"
+    other_player_score = 0
+    card_pile.append(pick_a_card(hand))
+    print("Next: ", end='')
+    turn_score = pegging_scoring(card_pile)
+    if turn_score == -1:
+        card_pile = [card_pile[-1]]
+        print("card pile reset---------------------")
+        turn_score = 0
+        print(f"{other_player} gets 1 for go")
+        other_player_score = 1
+    print(f"{player} card pile:", card_pile)
+    print(f"{player} gets {turn_score}")
+    return card_pile, turn_score, other_player_score
 
 
 pegging_init()
