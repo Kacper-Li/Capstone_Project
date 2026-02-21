@@ -9,9 +9,7 @@ from pair_score_calculator import find_biggest_pair
 def pegging_scoring(cards: list[Card]) -> int:
     """Based on the very top card of the pile, calculates total score of card played."""
     score = 0
-    total_card_rank = 0
-    for card in cards:
-        total_card_rank += card_value(card[0])
+    total_card_rank = total_cards_value(cards)
     if total_card_rank > 31:
         return -1
     elif total_card_rank == 15:
