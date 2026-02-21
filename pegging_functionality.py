@@ -128,7 +128,7 @@ def can_place(hand: list[Card], pile: list[Card]) -> list[Card]:
     return placeable_cards
 
 
-pegging_init()
+# pegging_init()
 
 
 # SCORING SHOULD ONLY CARE ABOUT THE LAST CARD PLACED,
