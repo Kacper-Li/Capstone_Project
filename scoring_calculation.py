@@ -77,6 +77,43 @@ def hand_scoring(hand: list[Card], cut_card: Card) -> int:
     return score
 
 
+def box_scoring(box: list[Card], cut_card: Card) -> int:
+    """Takes a hand of cards, returns the score value"""
+    score = 0
+    box_plus1 = box[:]
+    box_plus1.append(cut_card)
+    # print("Cards sending into run and pair calculations: ")
+    # print_deck(cards)
+    print(box_plus1)
+    fifteens = find_all_fifteens(box_plus1)
+    pairs = find_all_pairs(box_plus1)
+    run = find_hand_run(box_plus1)
+    flush = find_box_flush(box_plus1)
+    jack = find_jack(box, cut_card)
+
+    score += scoring_types[flush]
+    score += sum([scoring_types[fifteen] for fifteen in fifteens])
+    score += scoring_types[jack]
+    score += run
+    score += sum([scoring_types[pair] for pair in pairs])
+
+    if fifteens:
+        print(fifteens, ' ', end='')
+    if pairs != []:
+        print(pairs, ' ', end='')
+    print(f"Run of {run}, ", end='')
+    if flush:
+        print(f"{flush} for flush, ", end='')
+    if jack:
+        print(f"{jack} for jack ", end='')
+
+    # print(f"Total score of card placed: {score}")
+    if score == 0:
+        print("No points", end='')
+    print()
+    return score
+
+
 def find_all_fifteens(cards: list[Card]) -> list[str]:
     raw_cards = [card_value(card) for card in cards]
     # print(raw_cards)
@@ -97,6 +134,15 @@ def find_hand_flush(hand: list[Card], cut_card: Card) -> str:
             return 'flush of 5'
         else:
             return 'flush of 4'
+    else:
+        return '0'
+
+
+def find_box_flush(box: list[Card]) -> str:
+    """Checks for a flush in box, can only be 5 or none."""
+    suit = [card[1] for card in box]
+    if suit.count(suit[1]) == 5:
+        return 'flush of 5'
     else:
         return '0'
 
@@ -145,12 +191,13 @@ pairwith15 = [('7', 'Heart'), ('4', 'Club'), ('4', 'Diamond')]
 # Tests generated from game
 # test1 = []
 # test2 = []
-# hand1 = [('5', 'Diamond'), ('10', 'Heart'), ('J', 'Heart'), ('Q', 'Heart')]
-# hand2 = [('5', 'Club'), ('5', 'Heart'), ('5', 'Diamond'), ('J', 'Spade')]
-# hand3 = [('7', 'Club'), ('7', 'Heart'), ('4', 'Diamond'), ('4', 'Heart')]
-# hand4 = [('7', 'Club'), ('7', 'Heart'), ('4', 'Diamond'), ('4', 'Heart')]
-# hand5 = [('7', 'Club'), ('8', 'Spade'), ('9', 'Diamond'),
-#          ('7', 'Heart')]
-# x = hand_scoring(hand5, ('8', 'Club'))
-# print(x)
+hand1 = [('5', 'Diamond'), ('10', 'Heart'), ('J', 'Heart'), ('Q', 'Heart')]
+hand2 = [('5', 'Club'), ('5', 'Heart'), ('5', 'Diamond'), ('J', 'Spade')]
+hand3 = [('7', 'Club'), ('7', 'Heart'), ('4', 'Diamond'), ('4', 'Heart')]
+hand4 = [('5', 'Club'), ('3', 'Club'), ('2', 'Club'), ('9', 'Club')]
+hand5 = [('7', 'Club'), ('8', 'Spade'), ('9', 'Diamond'), ('7', 'Heart')]
+testing_tries = [hand1, hand2, hand3, hand4, hand5]
+for test in testing_tries:
+    x = box_scoring(test, ('8', 'Club'))
+    print(x)
 # pegging_scoring(test3)
