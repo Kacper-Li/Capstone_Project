@@ -35,7 +35,7 @@ def find_biggest_run(cards_played: list[Card]) -> int:
         # print_deck(sorted_cards)
         run_count = is_run(sorted_cards)
         # print(f"The run count returned is {run_count} here")
-        if run_count > 0:
+        if run_count > 2:
             return run_count
         # print(f"Card about to be removed from search is {cards_played[i]}")
     # print("Reached end of run calculator")
@@ -78,3 +78,6 @@ thirtyonewith15 = [('8', 'Heart'), ('7', 'Club'),
 # print(f"The amount of points this run has is {run_pts}")
 # run_pts = find_biggest_run(run3)
 # print(f"The amount of points this run has is {run_pts}")
+# test3 = [('A', 'Spade'), ('9', 'Spade'), ('9', 'Heart'), ('8', 'Diamond')]
+# out = find_biggest_run(test3)
+# print(f"The amount of points this run has is {out}")
