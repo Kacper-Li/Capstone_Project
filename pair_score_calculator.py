@@ -1,5 +1,7 @@
 from card_utils import Card
 from card_utils import card_order
+from card_utils import card_value
+from card_utils import card_ranks
 from card_utils import print_deck
 
 
@@ -25,6 +27,23 @@ def find_biggest_pair(cards_played: list[Card]) -> str:
             return 'pair royale'
     else:
         return 'pair'
+
+
+def find_all_pairs(hand: list[Card]) -> list[str]:
+    """Returns all pairs found as a list of score rules."""
+    raw_cards = [card_value(card) for card in hand]
+    pairs = []
+    for value in card_ranks:
+        counted = raw_cards.count(card_value((value, 'irrelevant')))
+        if counted < 2:
+            pass
+        elif counted == 2:
+            pairs.append('pair')
+        elif counted == 3:
+            pairs.append('pair royale')
+        elif counted == 4:
+            pairs.append('double pair royale')
+    return pairs
 
 
 pair0 = [('7', 'Heart'), ('7', 'Club')]
