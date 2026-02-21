@@ -44,10 +44,11 @@ def find_biggest_run(cards_played: list[Card]) -> int:
 
 def find_hand_run(cards_played: list[Card]) -> int:
     """Checks for the largest run in supplied cards_played pile."""
-    print("Initial:")
-    print_deck(cards_played)
-    print("")
+    # print("Initial:")
+    # print_deck(cards_played)
+    # print("")
     run_count = 1
+    max_run_length = 0
     multiplier = 1
     rank_count = 1
     sorted_cards = sorted(
@@ -69,11 +70,14 @@ def find_hand_run(cards_played: list[Card]) -> int:
                 return run_count * multiplier
             multiplier = 1
             rank_count = 1
-            run_count = 0
-            # print(f"Card about to be removed from search is {cards_played[i]}")
-            # print("Reached end of run calculator")
+            max_run_length = run_count
+            run_count = 1
     # print(f"Total run value:")
-    return run_count * multiplier
+    if max_run_length >= 3:
+        return max_run_length * multiplier
+    else:
+        return 0
+
 
 # IN CONCLUSION, YOU CALCULATE THE SCORE FROM CURRENT CARD.
 # PREVIOUS SCORES ARE IRRELEVANT.
@@ -144,4 +148,10 @@ def find_hand_run(cards_played: list[Card]) -> int:
 # hand1 = [('5', 'Diamond'), ('10', 'Heart'), ('J', 'Heart'), ('Q', 'Heart')]
 # hand1.append(('5', 'Spade'))
 # x = find_hand_run(run1)
+# print(x)
+# hand4 = [('3', 'Club'), ('4', 'Club'), ('5', 'Club'), ('Q', 'Club')]
+# # hand5 = [('7', 'Club'), ('8', 'Spade'), ('9', 'Diamond'),
+# #          ('7', 'Heart')]
+# hand4.append(('K', 'Heart'))
+# x = find_hand_run(hand4)
 # print(x)
