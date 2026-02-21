@@ -31,10 +31,12 @@ def find_biggest_pair(cards_played: list[Card]) -> str:
 
 def find_all_pairs(hand: list[Card]) -> list[str]:
     """Returns all pairs found as a list of score rules."""
-    raw_cards = [card_value(card) for card in hand]
+    raw_cards = [card_order(card) for card in hand]
     pairs = []
     for value in card_ranks:
-        counted = raw_cards.count(card_value((value, 'irrelevant')))
+        # print("Value:", value)
+        counted = raw_cards.count(card_order((value, 'irrelevant')))
+        # print("Counted:", counted)
         if counted < 2:
             pass
         elif counted == 2:
@@ -66,3 +68,9 @@ test0 = [('3', 'Spade'), ('10', 'Heart'), ('A', 'Heart')]
 # print(f"Found: {test}")
 # test = find_biggest_pair(test0)
 # print(f"Found: {test}")
+
+# hand1 = [('6', 'Diamond'), ('2', 'Heart'), ('J', 'Heart'), ('K', 'Heart')]
+# hand2 = [('7', 'Club'), ('7', 'Heart'), ('4', 'Diamond'), ('4', 'Heart')]
+# hand1.append(('K', 'Club'))
+# x = find_all_pairs(hand1)
+# print(x)
