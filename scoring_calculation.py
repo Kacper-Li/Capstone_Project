@@ -30,7 +30,7 @@ def pegging_scoring(cards: list[Card]) -> int:
     score += run
     if pair != '0':
         print(pair + ' ', end='')
-    score += scoring_types[find_biggest_pair(cards)]
+    score += scoring_types[pair]
     # print(f"Total score of card placed: {score}")
     if score == 0:
         print("No points", end='')
@@ -83,7 +83,14 @@ def find_all_fifteens(cards: list[Card]) -> list[str]:
 
 
 def find_hand_flush(hand: list[Card], cut_card: Card) -> str:
-    pass
+    suit = [card[1] for card in hand]
+    if suit.count(suit[1]) == 4:
+        if cut_card[1] == suit[1]:
+            return 'flush of 5'
+        else:
+            return 'flush of 4'
+    else:
+        return '0'
 
 
 def find_jack(cards: list[Card], cut_card: Card) -> str:
