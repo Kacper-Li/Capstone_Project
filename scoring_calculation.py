@@ -4,6 +4,7 @@ from card_utils import scoring_types
 from card_utils import total_cards_value
 from card_utils import card_value
 from run_score_calculator import find_biggest_run
+from run_score_calculator import find_hand_run
 from pair_score_calculator import find_biggest_pair
 from pair_score_calculator import find_all_pairs
 import itertools
@@ -41,26 +42,33 @@ def pegging_scoring(cards: list[Card]) -> int:
 def hand_scoring(hand: list[Card], cut_card: Card) -> int:
     """Takes a hand of cards, returns the score value"""
     score = 0
-    hand_plus1 = hand.append(cut_card)
+    hand_plus1 = hand[:]
+    hand_plus1.append(cut_card)
     # print("Cards sending into run and pair calculations: ")
     # print_deck(cards)
-
-    # will need to make function to find every combo for 15
+    print(hand_plus1)
     fifteens = find_all_fifteens(hand_plus1)
-    run = find_biggest_run(hand_plus1)
-    flush = find_hand_flush(hand, cut_card)
     pairs = find_all_pairs(hand_plus1)
+    run = find_hand_run(hand_plus1)
+    flush = find_hand_flush(hand, cut_card)
     jack = find_jack(hand, cut_card)
 
+    score += scoring_types[flush]
     score += sum([scoring_types[fifteen] for fifteen in fifteens])
     score += scoring_types[jack]
     score += run
     score += sum([scoring_types[pair] for pair in pairs])
 
+    if fifteens:
+        print(fifteens, end='')
+    if pairs != []:
+        print(pairs, end='')
     if run != 0:
         print(f"Run of {run} ", end='')
-    if pairs != []:
-        print(pairs)
+    if flush:
+        print(f"{flush} for flush ", end='')
+    if jack:
+        print(f"{jack} for jack ", end='')
 
     # print(f"Total score of card placed: {score}")
     if score == 0:
@@ -137,5 +145,12 @@ pairwith15 = [('7', 'Heart'), ('4', 'Club'), ('4', 'Diamond')]
 # Tests generated from game
 # test1 = []
 # test2 = []
-
+# hand1 = [('5', 'Diamond'), ('10', 'Heart'), ('J', 'Heart'), ('Q', 'Heart')]
+# hand2 = [('5', 'Club'), ('5', 'Heart'), ('5', 'Diamond'), ('J', 'Spade')]
+# hand3 = [('7', 'Club'), ('7', 'Heart'), ('4', 'Diamond'), ('4', 'Heart')]
+# hand4 = [('7', 'Club'), ('7', 'Heart'), ('4', 'Diamond'), ('4', 'Heart')]
+# hand5 = [('7', 'Club'), ('8', 'Spade'), ('9', 'Diamond'),
+#          ('7', 'Heart')]
+# x = hand_scoring(hand5, ('8', 'Club'))
+# print(x)
 # pegging_scoring(test3)
