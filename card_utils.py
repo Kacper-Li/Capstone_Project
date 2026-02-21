@@ -29,26 +29,26 @@ card_ranks = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']
 
 def card_value(card: Card) -> int:
     """Returns proper card values, as according to pegging values."""
-    if card in ['Q', 'J', 'K']:
+    if card[0] in ['Q', 'J', 'K']:
         return 10
-    elif card == 'A':
+    elif card[0] == 'A':
         return 1
     else:
-        return int(card)
+        return int(card[0])
 
 
 def card_order(card: Card) -> int:
     """Returns correct order of cards, for run calculation"""
-    if card == 'J':
+    if card[0] == 'J':
         return 11
-    elif card == 'Q':
+    elif card[0] == 'Q':
         return 12
-    elif card == 'K':
+    elif card[0] == 'K':
         return 13
-    elif card == 'A':
+    elif card[0] == 'A':
         return 1
     else:
-        return int(card)
+        return int(card[0])
 
 
 def print_deck(deck: list[Card]) -> None:
