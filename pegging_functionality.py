@@ -29,6 +29,14 @@ def pegging_init():
     shuffle(round_deck)
     p1_hand, p2_hand = [], []
     hands_init(round_deck, p1_hand, p2_hand)
+    p1_hand.pop()
+    p1_hand.pop()
+    p2_hand.pop()
+    p2_hand.pop()
+    # p1h = [('3', 'Spade'), ('3', 'Diamond'), ('2', 'Diamond'), ('A', 'Heart')]
+    # p2h = [('9', 'Spade'), ('Q', 'Diamond'), ('K', 'Diamond'), ('10', 'Heart')]
+    # p1_hand = p1h
+    # p2_hand = p2h
     print("p1 hand:")
     print_deck(p1_hand)
     print("p2 hand:")
@@ -51,16 +59,29 @@ def pegging_stage(
     card_pile: list[Card] = []
 
     while p1_hand or p2_hand != []:
-
-        card_pile, p1_diff, p2_diff = player_turn(
-            p1_hand, card_pile, "Player 1")
-        p1_score += p1_diff
-        p2_score += p2_diff
-
-        card_pile, p2_diff, p1_diff = player_turn(
-            p2_hand, card_pile, "Player 2")
-        p2_score += p2_diff
-        p1_score += p1_diff
+        last = ''
+        if p1_hand == []:
+            pass
+        else:
+            card_pile, p1_diff, p2_diff = player_turn(
+                p1_hand, card_pile, "Player 1")
+            p1_score += p1_diff
+            p2_score += p2_diff
+            last = 'p1'
+        if p2_hand == []:
+            pass
+        else:
+            card_pile, p2_diff, p1_diff = player_turn(
+                p2_hand, card_pile, "Player 2")
+            p2_score += p2_diff
+            p1_score += p1_diff
+            last = 'p2'
+    # THIS ONLY WORKS IF WE ALLOW MULTI CARD PLACES NEAR 31.
+    # if last == 'p1':
+    #     p1_score += 1
+    # else:
+    #     p2_score += 1
+    # print(f"{last} gets final point")
     return p1_score, p2_score
 
 
@@ -75,15 +96,18 @@ def player_turn(
     else:
         other_player = "Player 1"
     other_player_score = 0
-    if (can_place(hand, card_pile) != []):
-        card_pile.append(pick_a_card(hand))
+    playable_cards = can_place(hand, card_pile)
+    if (playable_cards) != []:
+        card_to_play = random.choice(playable_cards)
+        card_pile.append(card_to_play)
+        hand.remove(card_to_play)
         print("Next: ", end='')
         turn_score = pegging_scoring(card_pile)
     else:
-        turn_score = -1
-    if turn_score == -1:
-        card_pile = [card_pile[-1]]
-        print("card pile reset---------------------")
+        card_to_play = random.choice(hand)
+        card_pile = [card_to_play]
+        hand.remove(card_to_play)
+        print("card pile reset")
         turn_score = 0
         print(f"{other_player} gets 1 for go")
         other_player_score = 1
@@ -92,10 +116,11 @@ def player_turn(
     return card_pile, turn_score, other_player_score
 
 
-def can_place(hand: list[Card], pile: list[Card]) -> Card:
+def can_place(hand: list[Card], pile: list[Card]) -> list[Card]:
     """Tests if a hand can possibly place in pegging.\nReturns available cards"""
     total_placed_value = total_cards_value(pile)
     value_remaining = 31 - total_placed_value
+    # print(f"Max value allowed: {value_remaining}")
     placeable_cards = []
     for card in hand:
         if card_value(card) <= value_remaining:
