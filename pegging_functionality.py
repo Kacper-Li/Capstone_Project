@@ -4,6 +4,8 @@ import random
 from card_utils import pick_a_card
 from card_utils import hands_init
 from card_utils import print_deck
+from card_utils import card_value
+from card_utils import total_cards_value
 from card_utils import Card
 from card_utils import card_ranks, card_suits, scoring_types
 from scoring_calculation import pegging_scoring
@@ -48,7 +50,7 @@ def pegging_stage(
     """Runs until both hands run out of cards.\nReturns the scores"""
     card_pile: list[Card] = []
 
-    while p1_hand and p2_hand != []:
+    while p1_hand or p2_hand != []:
 
         card_pile, p1_diff, p2_diff = player_turn(
             p1_hand, card_pile, "Player 1")
@@ -73,18 +75,32 @@ def player_turn(
     else:
         other_player = "Player 1"
     other_player_score = 0
-    card_pile.append(pick_a_card(hand))
-    print("Next: ", end='')
-    turn_score = pegging_scoring(card_pile)
+    if (can_place(hand, card_pile) != []):
+        card_pile.append(pick_a_card(hand))
+        print("Next: ", end='')
+        turn_score = pegging_scoring(card_pile)
+    else:
+        turn_score = -1
     if turn_score == -1:
         card_pile = [card_pile[-1]]
         print("card pile reset---------------------")
         turn_score = 0
         print(f"{other_player} gets 1 for go")
         other_player_score = 1
-    print(f"{player} card pile:", card_pile)
-    print(f"{player} gets {turn_score}")
+    print(f"{player} turn. card pile:", card_pile)
+    print(f"{player} gets {turn_score}\n -------------------")
     return card_pile, turn_score, other_player_score
+
+
+def can_place(hand: list[Card], pile: list[Card]) -> Card:
+    """Tests if a hand can possibly place in pegging.\nReturns available cards"""
+    total_placed_value = total_cards_value(pile)
+    value_remaining = 31 - total_placed_value
+    placeable_cards = []
+    for card in hand:
+        if card_value(card) <= value_remaining:
+            placeable_cards.append(card)
+    return placeable_cards
 
 
 pegging_init()
