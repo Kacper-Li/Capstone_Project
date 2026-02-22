@@ -6,6 +6,11 @@ Current plan ideas for optimisation:
 - Make score a tuple so that you dont need to 
   unpack each time you update
 - Make pegging not show suits, they're irrelevant
+- Cut down each function to make clearer and minimise
+  redundancies. There are a lot of points of minor
+  things that either are silly, could be shorter, or can be
+  reformatted for better readability/simplicity. This counts
+  for essentially every function.
 
 
 Further functionality:
