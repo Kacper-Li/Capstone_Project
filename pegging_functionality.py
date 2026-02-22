@@ -15,73 +15,77 @@ def pegging_init():
     """Initialises everything for pegging to be tested."""
     print("Pegging setup begins")
     base_deck = list(product(card_ranks, card_suits))
-    p1_score, p2_score = 0, 0
+    non_dealer_score, dealer_score = 0, 0
     round_deck = base_deck[:]
     shuffle(round_deck)
-    p1_hand, p2_hand = [], []
-    hands_init(round_deck, p1_hand, p2_hand)
-    p1_hand.pop()
-    p1_hand.pop()
-    p2_hand.pop()
-    p2_hand.pop()
+    non_dealer_hand, dealer_hand = [], []
+    hands_init(round_deck, non_dealer_hand, dealer_hand)
+    non_dealer_hand.pop()
+    non_dealer_hand.pop()
+    dealer_hand.pop()
+    dealer_hand.pop()
     # p1h = [('3', 'Spade'), ('3', 'Diamond'), ('2', 'Diamond'), ('A', 'Heart')]
     # p2h = [('9', 'Spade'), ('Q', 'Diamond'), ('K', 'Diamond'), ('10', 'Heart')]
-    # p1_hand = p1h
-    # p2_hand = p2h
+    # non_dealer_hand = p1h
+    # dealer_hand = p2h
     print("p1 hand:")
-    print_deck(p1_hand)
+    print_deck(non_dealer_hand)
     print("p2 hand:")
-    print_deck(p2_hand)
+    print_deck(dealer_hand)
     # We only have the hands created, all thats needed for pegging
 
     print("Actual pegging begins")
-    p1_score, p2_score = pegging_stage(p1_hand, p2_hand, p1_score, p2_score)
-    print(f"Player 1 score: {p1_score}, Player 2 score: {p2_score}")
-    print(f"player hands: {p1_hand}, {p2_hand}")
+    non_dealer_score, dealer_score = pegging_stage(
+        non_dealer_hand, dealer_hand, non_dealer_score, dealer_score)
+    print(
+        f"Player 1 score: {non_dealer_score}, Player 2 score: {dealer_score}")
+    print(f"player hands: {non_dealer_hand}, {dealer_hand}")
 
 
 def pegging_stage(
-    p1_hand: list[Card],
-    p2_hand: list[Card],
-    p1_score: int,
-    p2_score: int
+    non_dealer_hand: list[Card],
+    dealer_hand: list[Card],
+    non_dealer_score: int,
+    dealer_score: int
 ) -> tuple[int, int]:
     """Runs until both hands run out of cards.\nReturns the scores"""
     card_pile: list[Card] = []
     last = 'E'
 
-    while p1_hand != [] or p2_hand != []:
+    while non_dealer_hand != [] or dealer_hand != []:
         # WANT:
         # if p1 has no valid cards, let p2 go, if p2 has no valid cards
         # reset peg
-        placeable_1 = can_place(p1_hand, card_pile)
+        placeable_1 = can_place(non_dealer_hand, card_pile)
         if placeable_1:
-            card_pile, p1_diff, p2_diff = player_turn(
-                p1_hand, card_pile, "Player 1")
-            p1_score += p1_diff
-            p2_score += p2_diff
+            card_pile, non_dealer_diff, dealer_diff = player_turn(
+                non_dealer_hand, card_pile, "Non-Dealer")
+            non_dealer_score += non_dealer_diff
+            dealer_score += dealer_diff
             last = '1'
 
-        placeable_2 = can_place(p2_hand, card_pile)
+        placeable_2 = can_place(dealer_hand, card_pile)
         if placeable_2:
-            card_pile, p2_diff, p1_diff = player_turn(
-                p2_hand, card_pile, "Player 2")
-            p2_score += p2_diff
-            p1_score += p1_diff
+            card_pile, dealer_diff, non_dealer_diff = player_turn(
+                dealer_hand, card_pile, "Dealer")
+            dealer_score += dealer_diff
+            non_dealer_score += non_dealer_diff
             last = '2'
         if placeable_1 == [] and placeable_2 == []:
             card_pile = []
             if last == '1':
-                p1_score += 1
+                non_dealer_score += 1
+                print(f"Non-Dealer gets one for go!")
             else:
-                p2_score += 1
-            print(f"Player " + last + " gets one for go!")
+                dealer_score += 1
+                print(f"Dealer gets one for go!")
     if last == '1':
-        p1_score += 1
+        non_dealer_score += 1
+        print(f"Non-Dealer gets one for last!")
     else:
-        p2_score += 1
-    print(f"Player " + last + " gets one for last!")
-    return p1_score, p2_score
+        dealer_score += 1
+        print(f"Dealer gets one for last!")
+    return non_dealer_score, dealer_score
 
 
 def player_turn(
@@ -91,10 +95,6 @@ def player_turn(
 ) -> tuple[list[Card], int, int]:
     """Lets a player place a card, scores it, returns card pile and score deltas.
     \nHandles pegging reset"""
-    if player == "Player 1":
-        other_player = "Player 2"
-    else:
-        other_player = "Player 1"
     other_player_score = 0
     playable_cards = can_place(hand, card_pile)
     # if (playable_cards) != []:
