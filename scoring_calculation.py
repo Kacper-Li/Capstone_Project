@@ -1,13 +1,18 @@
-from card_utils import print_deck
 from card_utils import Card
+from card_utils import card_ranks, card_suits
 from card_utils import scoring_types
+from card_utils import print_deck
 from card_utils import total_cards_value
 from card_utils import card_value
+from card_utils import hands_init
 from run_score_calculator import find_biggest_run
 from run_score_calculator import find_hand_run
 from pair_score_calculator import find_biggest_pair
 from pair_score_calculator import find_all_pairs
 import itertools
+from itertools import product
+from random import shuffle
+import random
 
 
 def pegging_scoring(cards: list[Card]) -> int:
@@ -46,7 +51,7 @@ def hand_scoring(hand: list[Card], cut_card: Card) -> int:
     hand_plus1.append(cut_card)
     # print("Cards sending into run and pair calculations: ")
     # print_deck(cards)
-    print(hand_plus1)
+    # print(hand_plus1)
     fifteens = find_all_fifteens(hand_plus1)
     pairs = find_all_pairs(hand_plus1)
     run = find_hand_run(hand_plus1)
@@ -60,15 +65,14 @@ def hand_scoring(hand: list[Card], cut_card: Card) -> int:
     score += sum([scoring_types[pair] for pair in pairs])
 
     if fifteens:
-        print(fifteens, end='')
-    if pairs != []:
-        print(pairs, end='')
-    if run != 0:
-        print(f"Run of {run} ", end='')
+        print(fifteens, ", ", end='')
+    if pairs:
+        print(pairs, ", ", end='')
+    print(f"Run of {run}, ", end='')
     if flush:
-        print(f"{flush} for flush ", end='')
+        print(f"Flush: {flush}, ", end='')
     if jack:
-        print(f"{jack} for jack ", end='')
+        print(f"Jack: {jack} ", end='')
 
     # print(f"Total score of card placed: {score}")
     if score == 0:
@@ -84,7 +88,7 @@ def box_scoring(box: list[Card], cut_card: Card) -> int:
     box_plus1.append(cut_card)
     # print("Cards sending into run and pair calculations: ")
     # print_deck(cards)
-    print(box_plus1)
+    # print(box_plus1)
     fifteens = find_all_fifteens(box_plus1)
     pairs = find_all_pairs(box_plus1)
     run = find_hand_run(box_plus1)
@@ -98,14 +102,14 @@ def box_scoring(box: list[Card], cut_card: Card) -> int:
     score += sum([scoring_types[pair] for pair in pairs])
 
     if fifteens:
-        print(fifteens, ' ', end='')
-    if pairs != []:
-        print(pairs, ' ', end='')
+        print(fifteens, ', ', end='')
+    if pairs:
+        print(pairs, ', ', end='')
     print(f"Run of {run}, ", end='')
     if flush:
-        print(f"{flush} for flush, ", end='')
+        print(f"flush: {flush}, ", end='')
     if jack:
-        print(f"{jack} for jack ", end='')
+        print(f"Jack: {jack} ", end='')
 
     # print(f"Total score of card placed: {score}")
     if score == 0:
@@ -155,6 +159,49 @@ def find_jack(cards: list[Card], cut_card: Card) -> str:
     return '0'
 
 
+def hand_or_box_init():
+    """Initialises hand or box: a set of 4 cards and cut card to score."""
+    print("Hands init begins.")
+    base_deck = list(product(card_ranks, card_suits))
+    p1_score, p2_score = 0, 0
+    round_deck = base_deck[:]
+    shuffle(round_deck)
+    p1_hand, p2_hand = [], []
+    hands_init(round_deck, p1_hand, p2_hand)
+    p1_hand.pop()
+    p1_hand.pop()
+    p2_hand.pop()
+    p2_hand.pop()
+    cut_card = random.choice(round_deck)
+    print("p1 hand:")
+    print_deck(p1_hand)
+    print("p2 hand:")
+    print_deck(p2_hand)
+    print("cut card:")
+    print(cut_card)
+    # score
+    hob = input("Hand or box?: ")
+    if hob.lower() == 'box':
+        print("Calculating for box!")
+        print("Player 1 stats:")
+        p1_score = box_scoring(p1_hand, cut_card)
+        print("Player 1 stats:")
+        p2_score = box_scoring(p2_hand, cut_card)
+        print("----------")
+    else:
+        print("Calculating for hand!")
+        print("Player 1 stats:")
+        p1_score = hand_scoring(p1_hand, cut_card)
+        print("Player 2 stats:")
+        p2_score = hand_scoring(p2_hand, cut_card)
+        print("----------")
+    print(f"Player 1 score: {p1_score}, Player 2 score: {p2_score}")
+    print(f"Player 1 hand: ")
+    print_deck(p1_hand)
+    print(f"Player 2 hand: ")
+    print_deck(p2_hand)
+
+
 pair2 = [('4', 'Heart'), ('4', 'Club'), ('4', 'Diamond'), ('4', 'Spade')]
 # Double Pair Royale / Four of a kind (12 points)
 pair3 = [('6', 'Heart'), ('6', 'Club'), ('9', 'Diamond'), ('9', 'Spade')]
@@ -191,13 +238,16 @@ pairwith15 = [('7', 'Heart'), ('4', 'Club'), ('4', 'Diamond')]
 # Tests generated from game
 # test1 = []
 # test2 = []
-hand1 = [('5', 'Diamond'), ('10', 'Heart'), ('J', 'Heart'), ('Q', 'Heart')]
-hand2 = [('5', 'Club'), ('5', 'Heart'), ('5', 'Diamond'), ('J', 'Spade')]
-hand3 = [('7', 'Club'), ('7', 'Heart'), ('4', 'Diamond'), ('4', 'Heart')]
-hand4 = [('5', 'Club'), ('3', 'Club'), ('2', 'Club'), ('9', 'Club')]
-hand5 = [('7', 'Club'), ('8', 'Spade'), ('9', 'Diamond'), ('7', 'Heart')]
-testing_tries = [hand1, hand2, hand3, hand4, hand5]
-for test in testing_tries:
-    x = box_scoring(test, ('8', 'Club'))
-    print(x)
+# hand1 = [('5', 'Diamond'), ('10', 'Heart'), ('J', 'Heart'), ('Q', 'Heart')]
+# hand2 = [('5', 'Club'), ('5', 'Heart'), ('5', 'Diamond'), ('J', 'Spade')]
+# hand3 = [('7', 'Club'), ('7', 'Heart'), ('4', 'Diamond'), ('4', 'Heart')]
+# hand4 = [('5', 'Club'), ('3', 'Club'), ('2', 'Club'), ('9', 'Club')]
+# hand5 = [('7', 'Club'), ('8', 'Spade'), ('9', 'Diamond'), ('7', 'Heart')]
+# testing_tries = [hand1, hand2, hand3, hand4, hand5]
+# for test in testing_tries:
+#     x = box_scoring(test, ('8', 'Club'))
+#     print(x)
 # pegging_scoring(test3)
+
+# RANDOMISED TESTING
+# hand_or_box_init()
