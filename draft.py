@@ -39,9 +39,10 @@ from random import shuffle
 from card_utils import Card
 from card_utils import pick_a_card
 from card_utils import print_deck
-from card_utils import card_ranks
-from card_utils import card_suits
+from card_utils import card_ranks, card_suits
 from card_utils import hands_init
+from card_utils import check_winner
+
 from pegging_functionality import pegging_stage
 from scoring_calculation import hand_scoring, box_scoring
 
@@ -76,7 +77,8 @@ def round_functionality(
     base_deck: list[Card],
     p1_score: int,
     p2_score: int,
-    round: int
+    round_num: int,
+    win_cond: int
 ) -> tuple[int, int]:
     """The main linking of functions, and game flow, to allow the overall game to be played.\n
     Returns player scores p1, p2 and controls flow of who gets box, pegging, scoring hand and box."""
@@ -102,27 +104,37 @@ def round_functionality(
     print()
     print(f"{separator} ROUND BEGINS!!!! {separator}")
     print()
-    if (round % 2) == 1:
+    if (round_num % 2) == 1:
         print("Player 1's turn with box!")
         # meaning player 2 places first in pegging
         p2_diff, p1_diff = pegging_stage(
             player_2_hand_copy, player_1_hand_copy, p2_score, p1_score)
         p1_score = p1_diff
+        if check_winner(p1_score, win_cond):
+            return p1_score, p2_score, "Player 1!"
         p2_score = p2_diff
+        if check_winner(p2_score, win_cond):
+            return p1_score, p2_score, "Player 2!"
         print(f"{separator} Pegging done! Moving on! {separator}")
         print("\nSince player 1 has box, player 2 gets their hand scored first!")
         print("Hand:")
         p2_diff = hand_scoring(player_2_hand, cut_card)
         p2_score += p2_diff
+        if check_winner(p2_score, win_cond):
+            return p1_score, p2_score, "Player 2!"
         print(f"Points earned: {p2_diff}")
         print("\nNow player 1 gets their hand and then box scored!")
         print("Hand:")
         p1_diff = hand_scoring(player_1_hand, cut_card)
         p1_score += p1_diff
+        if check_winner(p1_score, win_cond):
+            return p1_score, p2_score, "Player 1!"
         print(f"Points earned: {p1_diff}")
         print("Box:")
         p1_diff = box_scoring(box, cut_card)
         p1_score += p1_diff
+        if check_winner(p1_score, win_cond):
+            return p1_score, p2_score, "Player 1!"
         print(f"Points earned: {p1_diff}")
         print(f"{separator} Scoring round completely finished! {separator}")
 
@@ -132,27 +144,37 @@ def round_functionality(
         p1_diff, p2_diff = pegging_stage(
             player_1_hand_copy, player_2_hand_copy, p1_score, p2_score)
         p1_score = p1_diff
+        if check_winner(p1_score, win_cond):
+            return p1_score, p2_score, "Player 1!"
         p2_score = p2_diff
+        if check_winner(p2_score, win_cond):
+            return p1_score, p2_score, "Player 2!"
         print()
         print(f"{separator} Pegging done! Moving on! {separator}")
         print("\nSince player 2 has box, player 1 gets their hand scored first!")
         print("Hand:")
         p1_diff = hand_scoring(player_1_hand, cut_card)
         p1_score += p1_diff
+        if check_winner(p1_score, win_cond):
+            return p1_score, p2_score, "Player 1!"
         print(f"Points earned: {p1_diff}")
         print("\nNow player 2 gets their hand and then box scored!")
         print("Hand:")
         p2_diff = hand_scoring(player_2_hand, cut_card)
         p2_score += p2_diff
+        if check_winner(p2_score, win_cond):
+            return p1_score, p2_score, "Player 2!"
         print(f"Points earned: {p2_diff}")
         print("Box:")
         p2_diff = box_scoring(box, cut_card)
         p2_score += p2_diff
+        if check_winner(p2_score, win_cond):
+            return p1_score, p2_score, "Player 2!"
         print(f"Points earned: {p2_diff}")
         print(f"{separator} Scoring round completely finished! {separator}")
 
     print(f"Player 1: {p1_score}, Player 2: {p2_score}")
-    return p1_score, p2_score
+    return p1_score, p2_score, 'None'
 
 
 def main():
@@ -162,12 +184,22 @@ def main():
     player_2_score = 0
     round_number = 1
     win_con = 121
+    winner = 'None'
     separator = "||--||--||--||--||--||--||--||--||--||"
     # print("Base deck:")
     # print_deck(base_deck)
     while player_1_score < win_con or player_2_score < win_con:
-        p1_diff, p2_diff = round_functionality(base_deck, player_1_score,
-                                               player_2_score, round_number)
+        p1_diff, p2_diff, winner = round_functionality(base_deck, player_1_score,
+                                                       player_2_score, round_number, win_con)
+        if winner != 'None':
+            print("\n\n\n\n\n")
+            print("THE WINNER IS DECIDED")
+            print(f"ROUND: {round_number}")
+            print(f"!IS THE CHAMPION !{winner} IS THE CHAMPION!")
+            print("FINAL SCORES:")
+            print(f"PLAYER 1:{p1_diff}")
+            print(f"PLAYER 2:{p2_diff}")
+            return
         player_1_score = p1_diff
         player_2_score = p2_diff
         print()
