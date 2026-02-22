@@ -95,18 +95,20 @@ def round_functionality(
     print("Player 2 Hand:")
     print_deck(player_2_hand)
     separator = "||||||||||||||||||||"
-    print("Round deck:")
-    print_deck(round_deck)
+    # print("Round deck:")
+    # print_deck(round_deck)
     cut_card = pick_a_card(round_deck)
     print("Cut card chosen randomly: ", cut_card)
+    print()
     print(f"{separator} ROUND BEGINS!!!! {separator}")
+    print()
     if (round % 2) == 1:
         print("Player 1's turn with box!")
         # meaning player 2 places first in pegging
         p2_diff, p1_diff = pegging_stage(
             player_2_hand_copy, player_1_hand_copy, p2_score, p1_score)
-        p1_score += p1_diff
-        p2_score += p2_diff
+        p1_score = p1_diff
+        p2_score = p2_diff
         print(f"{separator} Pegging done! Moving on! {separator}")
         print("\nSince player 1 has box, player 2 gets their hand scored first!")
         print("Hand:")
@@ -129,8 +131,9 @@ def round_functionality(
         # meaning player 1 places first in pegging
         p1_diff, p2_diff = pegging_stage(
             player_1_hand_copy, player_2_hand_copy, p1_score, p2_score)
-        p1_score += p1_diff
-        p2_score += p2_diff
+        p1_score = p1_diff
+        p2_score = p2_diff
+        print()
         print(f"{separator} Pegging done! Moving on! {separator}")
         print("\nSince player 2 has box, player 1 gets their hand scored first!")
         print("Hand:")
@@ -158,12 +161,22 @@ def main():
     player_1_score = 0
     player_2_score = 0
     round_number = 1
+    win_con = 121
+    separator = "||--||--||--||--||--||--||--||--||--||"
     # print("Base deck:")
     # print_deck(base_deck)
-    p1_diff, p2_diff = round_functionality(base_deck, player_1_score,
-                                           player_2_score, round_number)
-    player_1_score += p1_diff
-    player_2_score += p2_diff
+    while player_1_score < win_con or player_2_score < win_con:
+        p1_diff, p2_diff = round_functionality(base_deck, player_1_score,
+                                               player_2_score, round_number)
+        player_1_score = p1_diff
+        player_2_score = p2_diff
+        print()
+        print(f"{separator} NEW ROUND BEGINS {separator}")
+        print(f"{separator}  Round {round_number} result  {separator}")
+        print(f"{separator}  Player 1:  {player_1_score}  {separator}")
+        print(f"{separator}  Player 2:  {player_2_score}  {separator}")
+        print()
+        round_number += 1
     # print("Base deck after round:")
     # print_deck(base_deck)
 
