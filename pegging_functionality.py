@@ -86,6 +86,8 @@ def pegging_stage(
     else:
         dealer_score += 1
         print(f"Dealer gets one for last!")
+    print(
+        f"Non-Dealers gain: {non_dealer_score}, Dealers gain: {dealer_score}")
     return non_dealer_score, dealer_score
 
 
