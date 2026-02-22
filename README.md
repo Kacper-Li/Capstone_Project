@@ -1,9 +1,9 @@
 Capstone project to feature a card game "Crib" coded in python.
 # HOW TO RUN
-python3 game.py -> currently draft.py
-Make sure you're in the project root folder
-run `python3 draft.py`
-The game should begin and run till completion.
+python3 game.py -> currently draft.py<br>
+Make sure you're in the project root folder<br>
+run `python3 draft.py`<br>
+The game should begin and run till completion.<br>
 # OVERVIEW
 The game has 3 main parts but generally follows the following flow:
 - game setup: Hands, Box, cut card and scores are all intialised first.
