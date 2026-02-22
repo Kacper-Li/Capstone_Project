@@ -59,18 +59,16 @@ def pegging_stage(
         # reset peg
         placeable_1 = can_place(non_dealer_hand, card_pile)
         if placeable_1:
-            card_pile, non_dealer_diff, dealer_diff = player_turn(
+            card_pile, non_dealer_diff = player_turn(
                 non_dealer_hand, card_pile, "Non-Dealer")
             non_dealer_score += non_dealer_diff
-            dealer_score += dealer_diff
             last = '1'
 
         placeable_2 = can_place(dealer_hand, card_pile)
         if placeable_2:
-            card_pile, dealer_diff, non_dealer_diff = player_turn(
+            card_pile, dealer_diff = player_turn(
                 dealer_hand, card_pile, "Dealer")
             dealer_score += dealer_diff
-            non_dealer_score += non_dealer_diff
             last = '2'
         if placeable_1 == [] and placeable_2 == []:
             card_pile = []
@@ -95,10 +93,9 @@ def player_turn(
     hand: list[Card],
     card_pile: list[Card],
     player: str,
-) -> tuple[list[Card], int, int]:
-    """Lets a player place a card, scores it, returns card pile and score deltas.
+) -> tuple[list[Card], int]:
+    """Lets a player place a card, scores it, returns card pile and score in turn.
     \nHandles pegging reset"""
-    other_player_score = 0
     playable_cards = can_place(hand, card_pile)
     # if (playable_cards) != []:
     card_to_play = random.choice(playable_cards)
@@ -116,7 +113,7 @@ def player_turn(
     #     other_player_score = 1
     print(f"{player} turn. card pile:", card_pile)
     print(f"{player} gets {turn_score}\n -------------------")
-    return card_pile, turn_score, other_player_score
+    return card_pile, turn_score
 
 
 def can_place(hand: list[Card], pile: list[Card]) -> list[Card]:
