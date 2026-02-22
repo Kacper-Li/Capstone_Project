@@ -49,9 +49,8 @@ def hand_scoring(hand: list[Card], cut_card: Card) -> int:
     score = 0
     hand_plus1 = hand[:]
     hand_plus1.append(cut_card)
-    # print("Cards sending into run and pair calculations: ")
-    # print_deck(cards)
-    # print(hand_plus1)
+    print_deck(hand)
+    print(f"Cut card: {cut_card}")
     fifteens = find_all_fifteens(hand_plus1)
     pairs = find_all_pairs(hand_plus1)
     run = find_hand_run(hand_plus1)
@@ -82,12 +81,13 @@ def hand_scoring(hand: list[Card], cut_card: Card) -> int:
 
 
 def box_scoring(box: list[Card], cut_card: Card) -> int:
-    """Takes a hand of cards, returns the score value"""
+    """Takes a box of cards, returns the score value"""
     score = 0
     box_plus1 = box[:]
     box_plus1.append(cut_card)
-    # print("Cards sending into run and pair calculations: ")
-    # print_deck(cards)
+
+    print_deck(box)
+    print(f"Cut card: {cut_card}")
     # print(box_plus1)
     fifteens = find_all_fifteens(box_plus1)
     pairs = find_all_pairs(box_plus1)
