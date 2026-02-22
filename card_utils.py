@@ -100,3 +100,11 @@ def total_cards_value(cards: list[Card]) -> int:
     for card in cards:
         total_card_rank += card_value(card)
     return total_card_rank
+
+
+def check_winner(score: int, win_condition: int) -> bool:
+    """Compares a score to the winning total. Returns true for winner!"""
+    if score > win_condition:
+        return True
+    else:
+        return False
