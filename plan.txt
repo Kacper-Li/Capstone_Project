@@ -1,3 +1,26 @@
+Current plan ideas for optimisation:
+- Allow global names to be issued rather than 
+  just "Dealer" and "Non-Dealer"
+- Turn Card into a class so that you 
+  dont need card_utils to be a file of functions
+- Make score a tuple so that you dont need to 
+  unpack each time you update
+- Make pegging not show suits, they're irrelevant
+
+
+Further functionality:
+- Somehow get a score tracker retained at the top of
+  the viewport or something, would be very useful for
+  players to see live scores.
+
+
+
+
+
+
+
+
+OLD:
 Things to delegate:
 --Creating deck 
 --Shuffling deck
