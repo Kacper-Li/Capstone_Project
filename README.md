@@ -19,11 +19,13 @@ Main controller: main function + round_functionality function:
 - initialises hands, box and cut card from 1 randomised deck
 - calls pegging stage, and subsequently all scoring functions
 - exits for winner
-- controls overall flow of the game, repeating rounds, deciding who's turn it is, adding scores...
+- controls overall flow of the game, repeating rounds, deciding who's turn it is, adding scores...<br>
+
 Scoring:
 - Each stage has it's own scoring function, as each stage has slightly different scoring rules.
 - scoring_calculation.py contains all the scoring functions.
-- Scoring pairs and runs was especially difficult, each have their own associated file consequently.
+- Scoring pairs and runs was especially difficult, each have their own associated file consequently.<br>
+
 Cards:
 - have their own type alias, are used at every single point.
 - the main way cards are ranked, ordered, calculated for scores are by using lists.
