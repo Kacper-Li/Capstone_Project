@@ -49,7 +49,7 @@ def pegging_stage(
     dealer_score: int
 ) -> tuple[int, int]:
     """Runs until both hands run out of cards.\n
-    Returns the scores: Non-Dealer, Dealer"""
+    Returns the total scores: Non-Dealer, Dealer DO NOT ADD"""
     card_pile: list[Card] = []
     last = 'E'
 
@@ -85,7 +85,7 @@ def pegging_stage(
         dealer_score += 1
         print(f"Dealer gets one for last!")
     print(
-        f"Non-Dealers gain: {non_dealer_score}, Dealers gain: {dealer_score}")
+        f"Non-Dealers final: {non_dealer_score}, Dealers final: {dealer_score}")
     return non_dealer_score, dealer_score
 
 
