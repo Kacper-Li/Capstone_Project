@@ -45,7 +45,7 @@ def pegging_scoring(cards: list[Card]) -> int:
 
 
 def hand_scoring(hand: list[Card], cut_card: Card) -> int:
-    """Takes a hand of cards, returns the score value"""
+    """Takes a hand of cards, returns the score value TO ADD."""
     score = 0
     hand_plus1 = hand[:]
     hand_plus1.append(cut_card)
@@ -81,7 +81,7 @@ def hand_scoring(hand: list[Card], cut_card: Card) -> int:
 
 
 def box_scoring(box: list[Card], cut_card: Card) -> int:
-    """Takes a box of cards, returns the score value"""
+    """Takes a box of cards, returns the score value TO ADD."""
     score = 0
     box_plus1 = box[:]
     box_plus1.append(cut_card)
