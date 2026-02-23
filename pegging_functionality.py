@@ -88,6 +88,8 @@ def pegging_stage(
         f"Non-Dealers final: {non_dealer_score}, Dealers final: {dealer_score}")
     return non_dealer_score, dealer_score
 
+# USING DIFFERENT METHOD TO PICK CARD HERE, STANDARDISE
+
 
 def player_turn(
     hand: list[Card],
