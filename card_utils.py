@@ -82,14 +82,19 @@ def hands_init(
     # print_deck(player_2_hand)
 
 
-def pick_a_card(card_set: list[Card], index=0) -> Card:
+def pick_a_card(card_set: list[Card]) -> Card:
     """
     Remove and return a random (rank, suit) card from any card_set.\n
     Manipulates the list of cards directly.
     """
-    pick_a_card = card_set.pop(random.randint(0, len(card_set) - 1))
+    print("Your cards are:")
+    print_deck(card_set)
+    which_card = input(
+        f"Which card do you want to choose, range 1-{len(card_set)}: ")
+    chosen_card = card_set.pop(int(which_card) - 1)
+    # random_card = card_set.pop(random.randint(0, len(card_set) - 1))
     # print(f"The card chosen at random: {pick_a_card[0]} of {pick_a_card[1]}s")
-    return pick_a_card
+    return chosen_card
 
 
 def total_cards_value(cards: list[Card]) -> int:
