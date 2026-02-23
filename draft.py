@@ -87,10 +87,10 @@ def round_functionality(
 
     player_1_hand, player_2_hand = [], []
     hands_init(round_deck, player_1_hand, player_2_hand)
-    player_1_hand_copy = player_1_hand[:]
-    player_2_hand_copy = player_2_hand[:]
 
     box = box_init(player_1_hand, player_2_hand)
+    player_1_hand_copy = player_1_hand[:]
+    player_2_hand_copy = player_2_hand[:]
 
     print("Player 1 Hand:")
     print_deck(player_1_hand)
